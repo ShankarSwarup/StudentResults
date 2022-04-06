@@ -1,13 +1,11 @@
 import React from 'react'
 import {useState} from 'react'
-import { render } from 'react-dom'
 
 const Form = () => {
     const [regNo, setreg] = useState('')
     const [year, setyear] = useState("1st")
     const [sem, setsem] = useState("1")
-    const [Data,setData] = useState('')
-    const [visible,setvisible] = useState(0)
+    const [Data,setData] = useState()
     const [keys,setkeys] = useState([])
  
 
@@ -33,13 +31,8 @@ const Form = () => {
 
         const data = await res.json()
         if(data.status === 'ok'){
-            console.log(data.result)
             setData(data.result)
-            // Data.map(post => {
-            //   console.log(post);
-            // })
             setkeys(Object.keys(data.result))
-            setvisible(1)
             setreg('')
             setsem("1")
             setyear("1st")
@@ -74,23 +67,17 @@ const Form = () => {
       </label>
       <input type="submit" value="post" />
       </form>
-      <ul>
-        <li>{Data["sem"]}</li>
-        <li>{Data["year"]}</li>
-        <li>{Data["regNo"]}</li>
-            {
-              keys.forEach((key, index) => {
-                <ul>
-                  <li>
-                    {key}
-                  </li>
-                  <li>
-                    {Data[key]}
-                  </li>
-                </ul>
-              })
-            }
-      </ul>
+      <div className='posts'>
+        {
+          keys.map(x => {
+            return (
+              <>
+              <h4>{x} {Data[x]}</h4>
+              </>
+            )
+          })
+        }
+      </div>
     </div>
   )
 }
