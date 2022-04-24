@@ -17,7 +17,35 @@ const stud = new mongoose.Schema(
         Password:{
             type:String,
             required:true
-        }
+        },
+        Gender:{
+            type:String,
+            required:true
+        },
+        DOB:{
+            type:String,
+            required:true
+        },
+        Country:{
+            type:String,
+            required:true
+        },
+        State:{
+            type:String,
+            required:true
+        },
+        Phn:{
+            type:String,
+            required:true
+        },
+        Email:{
+            type:String,
+            required:true
+        },
+        Address:{
+            type:String,
+            required:true
+        },
     }
 );
 

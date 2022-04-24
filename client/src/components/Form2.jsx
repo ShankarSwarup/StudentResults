@@ -14,6 +14,7 @@ const Form2 = () => {
     const [lreg,setlreg] = useState("");
     const [lpassword,setlpassword] = useState("");
     const navigate = useNavigate();
+    const [x,setx] = useState([]);
 
     const toggleForm1 = () => {
         var container = document.querySelector('.container2');
@@ -23,9 +24,9 @@ const Form2 = () => {
     const handlesubmit1 = async(e) => {
         e.preventDefault();
 
-        console.log(reg,pass,password);
+        // console.log(reg,pass,password);
 
-        const res = await fetch('https://vignancalendar.herokuapp.com/change',{
+        const res = await fetch('http://localhost:3001/studpass',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
@@ -52,9 +53,9 @@ const Form2 = () => {
     const handlesubmit = async(e) => {
         e.preventDefault();
 
-        console.log(lreg,lpassword);
+        // console.log(lreg,lpassword);
 
-        const res = await fetch('https://vignancalendar.herokuapp.com/login',{
+        const res = await fetch('http://localhost:3001/studlogin',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
@@ -67,11 +68,13 @@ const Form2 = () => {
 
         const data = await res.json()
         if(data.status === 'ok'){
+            x.push(data.data);
+            localStorage.setItem('profile',JSON.stringify(x[0]));
+            localStorage.setItem('reg',lreg);
             setlreg("");
             setlpassword("");
-            navigate("/cal");
-
-            // <Navigate to="/cal"  />
+            setx([]);
+            navigate("/profile");
         }
         else{
             alert(data.message);
@@ -88,7 +91,7 @@ const Form2 = () => {
                 <div className="formBx">
                     <form onSubmit={handlesubmit}>
                         <h2>User Sign In</h2>
-                        <input type="text" value={lreg} onChange={event => setlreg(event.target.value)} placeholder="Registartion id" id="Email"/>
+                        <input type="text" value={lreg} onChange={event => setlreg(event.target.value)} placeholder="Registration id" id="Email"/>
                         <input type="text" value={lpassword} onChange={event => setlpassword(String(event.target.value))} placeholder="Password" id="Password"/>
                         <input type="submit" id="signin" value='Sign in'/>
                         <p className="signup">Do you want to change the password ?<a  onClick={toggleForm1}>Change Password</a></p>
