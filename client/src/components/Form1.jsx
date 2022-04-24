@@ -1,5 +1,5 @@
 import React from 'react'
-import "../css/Forms.css"
+// import "../css/Forms.css"
 import { useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 
@@ -68,7 +68,7 @@ const Form1 = () => {
         if(data.status === 'ok'){
             setlreg("");
             setlpassword("");
-            navigate("/thome");
+            navigate("/mainteach");
         }
         else{
             alert(data.message);

@@ -6,6 +6,7 @@ const Profile = () => {
     <div>Profile
       <p>{x.Reg}</p>
       <p>{x.Name}</p>
+      <p>{x.Dept}</p>
       <p>{x.Email}</p>
       <p>{x.Password}</p>
       <p>{x.Gender}</p>

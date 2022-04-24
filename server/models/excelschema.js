@@ -15,11 +15,11 @@ const excelSchema = new mongoose.Schema({
     },
     "subject":[
         {
-            sub:{
+            "sub":{
                 type:String,
                 required:true
             },
-            grade:{
+            "grade":{
                 type:String,
                 required:true
             }

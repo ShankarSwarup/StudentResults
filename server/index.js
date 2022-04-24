@@ -126,7 +126,7 @@ app.post('/gets',async(req,res)=>{
         const temp = req.body.el;
         let a=temp[0]+"rd";
         let b=temp[2];
-        console.log(name,a,b);
+        // console.log(name,a,b);
         const user = await excelModel.findOne({"regNo":name,"year":a,"sem":b});
         // console.log(user);
         if(!user)

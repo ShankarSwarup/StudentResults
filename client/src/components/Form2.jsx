@@ -1,5 +1,5 @@
 import React from 'react'
-import "../css/Forms.css"
+// import "../css/Forms.css"
 import { useState } from 'react'
 // import { Navigate } from "react-router-dom";
 import { useNavigate} from 'react-router-dom'
@@ -74,7 +74,7 @@ const Form2 = () => {
             setlreg("");
             setlpassword("");
             setx([]);
-            navigate("/profile");
+            navigate("/mainstud");
         }
         else{
             alert(data.message);
