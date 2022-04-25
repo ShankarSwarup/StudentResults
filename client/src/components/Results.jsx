@@ -27,7 +27,7 @@ const Results = () => {
 
     e.preventDefault();
 
-    const res = await fetch('http://localhost:3001/results',{
+    const res = await fetch('https://vignanminiproject.herokuapp.com/results',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'

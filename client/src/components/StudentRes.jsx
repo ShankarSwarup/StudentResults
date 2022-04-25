@@ -11,7 +11,7 @@ const StudentRes = () => {
     e.preventDefault();
     // console.log(v);
 
-    const res = await fetch('http://localhost:3001/gets',{
+    const res = await fetch('https://vignanminiproject.herokuapp.com/gets',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'
