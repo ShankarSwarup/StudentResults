@@ -6,6 +6,8 @@ const StudentRes = () => {
   const [el,sete] = useState("1-1");
   const [x,setx] = useState([]);
   const [sub,setsub] = useState([]);
+  const [back,setback] = useState([]);
+  const [val,setval] = useState(false);
   const [v,setv] = useState(localStorage.getItem('reg'));
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -23,44 +25,71 @@ const StudentRes = () => {
     })
     const data = await res.json();
 
-    if(data.status === 'ok'){
+    if(data.status === 'ok' && data.message === 'Successful'){
         setx(data.data);
         setsub(data.data["subject"])
+        setval(true);
         // console.log(x["subject"]);
         // alert("successful");
+    }
+    else if(data.status === 'ok' && data.message === 'backlogs')
+    {
+      setback(data.data);
+      setsub([])
+      setx([])
+      setval(false)
+      // console.log(back);
+      // back.map((item)=>{
+      //   console.log(item);
+      // })
     }
     else{
         alert(data.message);
         setsub([])
         setx([])
+        setback([])
+        setval(false)
     }
   }
 
   const Resp = () => {
-    if(x!==[])
+    if(val === true)
     {
-      return(
-        <div>
-          {
-            sub.map((item)=>{
-              return(
-                <div>
-                <p>{item.sub}</p>
-                <p>{item.grade}</p>
-                </div>
-              )
-            })
-          }
-        </div>
-      )
+      if(x)
+      {
+        return(
+          <div>
+            {
+              sub.map((item)=>{
+                return(
+                  <div key="item">
+                  <p>{item.sub}</p>
+                  <p>{item.grade}</p>
+                  </div>
+                )
+              })
+            }
+          </div>
+        )
+      }
+      
     }
     else
     {
-      return(
-        <div>
-          <p>No data</p>
-        </div>
-      )
+        // alert("x");
+        return(
+          <div>
+            {
+              back.map((item)=>{
+                return(
+                  <div key="item">
+                  <p>{item}</p>
+                  </div>
+                )
+              })
+            }
+          </div>
+        )
     }
   }
 
@@ -76,6 +105,7 @@ const StudentRes = () => {
         <option value="3-2">3-2</option>
         <option value="4-1">4-1</option>
         <option value="4-2">4-2</option>
+        <option value="backlog">backlogs</option>
       </select>
       <input type="submit" value="Submit" />
       </form>

@@ -124,16 +124,44 @@ app.post('/gets',async(req,res)=>{
         const name = req.body.v;
         // console.log(name);
         const temp = req.body.el;
-        let a=temp[0]+"rd";
-        let b=temp[2];
-        // console.log(name,a,b);
-        const user = await excelModel.findOne({"regNo":name,"year":a,"sem":b});
-        // console.log(user);
-        if(!user)
+        if(temp!='backlog')
         {
-            return  res.json({status : "err",message : "No data !",token : false})
+            let a=temp[0]+"rd";
+            let b=temp[2];
+            // console.log(name,a,b);
+            const user = await excelModel.findOne({"regNo":name,"year":a,"sem":b});
+            // console.log(user);
+            if(!user)
+            {
+                return  res.json({status : "err",message : "No data !",token : false})
+            }
+            return res.json({status:'ok',message : "Successful" , data:user});
         }
-        return res.json({status:'ok',message : "Successful !" , data:user});
+        else
+        {
+            const user = await excelModel.find({"regNo":name});
+            // console.log(user);
+            const ans  = [];
+            if(!user)
+            {
+                return  res.json({status : "err",message : "No data !",token : false})
+            }
+            else
+            {
+                // console.log(user);
+                user.map((item)=>{
+                    item.subject.map((a)=>{
+                        // console.log(a);
+                        if(a.grade ==='F')
+                        {
+                            ans.push(a.sub);
+                        }
+                    })
+                })
+                console.log(ans);
+                return res.json({status:'ok',message : "backlogs" , data:ans});
+            }  
+        }
     }
     catch{
          res.json({status : "err",message : "Wrong credentials !",token : false})
