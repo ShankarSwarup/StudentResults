@@ -1,8 +1,18 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { useNavigate} from 'react-router-dom'
+
 
 
 const MainStud = () => {
+  const navigate = useNavigate();
+
+  const handle = () => {
+    localStorage.removeItem('reg');
+    localStorage.removeItem('profile');
+    navigate("/");
+  }
+
   return (
     <div>
      <nav>
@@ -15,6 +25,7 @@ const MainStud = () => {
             <li><Link className="active" to="/mainstud">Home</Link></li>
             <li><Link  to="/studentres">Your Results</Link></li>
             <li><Link  to="/profile">Your Profile</Link></li>
+            <li><button onClick={handle}>Log out</button></li>
         </ul>
     </nav>
     <div className="container">
