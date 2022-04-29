@@ -1,11 +1,12 @@
 import {useState} from 'react'
-import { useNavigate} from 'react-router-dom'
+import { Navigate,useNavigate} from 'react-router-dom'
 import React from "react";
 import * as XLSX from "xlsx";
 
 const Results = () => {
   const [files,setfiles] = useState([]);
   const navigate = useNavigate();
+  const [te,sette] =  useState(localStorage.getItem('tid'));
 
 
   const onChange = (e) => {
@@ -55,6 +56,7 @@ const Results = () => {
     
 }
 
+const Func = () => {
   return (
     <section className="user1" id="user1">
         <div className="container2">
@@ -74,6 +76,8 @@ const Results = () => {
         </div>
     </section>
   )
+}
+return ( te ? <Func/> : <Navigate to ="/" />)
 }
 
 export default Results

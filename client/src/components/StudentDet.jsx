@@ -1,9 +1,11 @@
 import {useState} from 'react'
 import React from "react";
 import * as XLSX from "xlsx";
+import { Navigate ,useNavigate} from 'react-router-dom'
 
 const StudentDet = () => {
-  const [files,setfiles] = useState()
+  const [files,setfiles] = useState();
+  const [te,sette] =  useState(localStorage.getItem('tid'));
 
   const onChange = (e) => {
     const [file] = e.target.files;
@@ -45,6 +47,7 @@ const StudentDet = () => {
     
 }
 
+const Func = () => {
   return (
     <section className="user1" id="user1">
         <div className="container2">
@@ -64,6 +67,9 @@ const StudentDet = () => {
         </div>
     </section>
   )
+}
+
+return ( te ? <Func/> : <Navigate to ="/" />)
 }
 
 export default StudentDet

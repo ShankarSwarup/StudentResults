@@ -2,7 +2,7 @@ import React from 'react'
 import "../css/Forms.css"
 import { useState } from 'react'
 // import { Navigate } from "react-router-dom";
-import { useNavigate} from 'react-router-dom'
+import { Navigate, useNavigate} from 'react-router-dom'
 
 
 
@@ -15,6 +15,7 @@ const Form2 = () => {
     const [lpassword,setlpassword] = useState("");
     const navigate = useNavigate();
     const [x,setx] = useState([]);
+    const [te,sette] =  useState(localStorage.getItem('reg'));
 
     const toggleForm1 = () => {
         var container = document.querySelector('.container2');
@@ -80,42 +81,46 @@ const Form2 = () => {
             alert(data.message);
         }
     }
+
+    const Fun = () => {
+        return(
+            <section className="user1" id="user1">
+            <div className="container2">
+                <div className="user signinBx">
+                    <div className="imgBx">
+                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uqsv3ztj.json"  background="transparent"  speed="1"  style={{width: "100%" , height: "100%"}}  loop  autoplay></lottie-player>
+                    </div>
+                    <div className="formBx">
+                        <form onSubmit={handlesubmit}>
+                            <h2>User Sign In</h2>
+                            <input type="text" value={lreg} onChange={event => setlreg(event.target.value)} placeholder="Registration id" id="Email"/>
+                            <input type="text" value={lpassword} onChange={event => setlpassword(String(event.target.value))} placeholder="Password" id="Password"/>
+                            <input type="submit" id="signin" value='Sign in'/>
+                            <p className="signup">Do you want to change the password ?<a  onClick={toggleForm1}>Change Password</a></p>
+                        </form>
+                    </div>
+                </div>
+                <div className="user signupBx">
+                    <div className="formBx">
+                        <form onSubmit={handlesubmit1}>
+                            <h2>Change Password</h2>
+                            <input type="text"  value={reg} onChange={event => setreg(event.target.value)}  placeholder="Registration id"/>
+                            <input type="text"  value={pass} onChange={event => setpass(event.target.value)} placeholder="Old Password" id="password"/>
+                            <input type="text"  value={password} onChange={event => setpassword(event.target.value)} placeholder="New Password"/>
+                            <input type="submit" id="signup" value='Change'/>
+                            <p className="signup">Already have an account ?<a  onClick={toggleForm1}>Sign in</a></p>
+                        </form>
+                    </div>
+                    <div className="imgBx">
+                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ncpnijkz.json"  background="transparent"  speed="1"  style={{width: "100%" , height: "100%"}}   loop  autoplay></lottie-player>
+                    </div>
+                </div>
+            </div>
+        </section>
+        )
+    }
     
-  return (
-    <section className="user1" id="user1">
-        <div className="container2">
-            <div className="user signinBx">
-                <div className="imgBx">
-                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uqsv3ztj.json"  background="transparent"  speed="1"  style={{width: "100%" , height: "100%"}}  loop  autoplay></lottie-player>
-                </div>
-                <div className="formBx">
-                    <form onSubmit={handlesubmit}>
-                        <h2>User Sign In</h2>
-                        <input type="text" value={lreg} onChange={event => setlreg(event.target.value)} placeholder="Registration id" id="Email"/>
-                        <input type="text" value={lpassword} onChange={event => setlpassword(String(event.target.value))} placeholder="Password" id="Password"/>
-                        <input type="submit" id="signin" value='Sign in'/>
-                        <p className="signup">Do you want to change the password ?<a  onClick={toggleForm1}>Change Password</a></p>
-                    </form>
-                </div>
-            </div>
-            <div className="user signupBx">
-                <div className="formBx">
-                    <form onSubmit={handlesubmit1}>
-                        <h2>Change Password</h2>
-                        <input type="text"  value={reg} onChange={event => setreg(event.target.value)}  placeholder="Registration id"/>
-                        <input type="text"  value={pass} onChange={event => setpass(event.target.value)} placeholder="Old Password" id="password"/>
-                        <input type="text"  value={password} onChange={event => setpassword(event.target.value)} placeholder="New Password"/>
-                        <input type="submit" id="signup" value='Change'/>
-                        <p className="signup">Already have an account ?<a  onClick={toggleForm1}>Sign in</a></p>
-                    </form>
-                </div>
-                <div className="imgBx">
-                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ncpnijkz.json"  background="transparent"  speed="1"  style={{width: "100%" , height: "100%"}}   loop  autoplay></lottie-player>
-                </div>
-            </div>
-        </div>
-    </section>
-  )
+  return ( te ? <Navigate to ="/mainstud" /> : <Fun/>)
 }
 
 export default Form2
