@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Navigate, useNavigate} from 'react-router-dom'
+
 
 
 
@@ -93,7 +95,8 @@ const StudentRes = () => {
     }
   }
 
-  return (
+  const Funct = () => {
+     return (
     <div>StudentRes
       <form onSubmit={handleSubmit}>
       <select value={el} onChange={event => sete(event.target.value)}>
@@ -113,7 +116,12 @@ const StudentRes = () => {
 
       
     </div>
-  )
+     )
+  }
+  
+  return ( v ? <Funct/> : <Navigate to ="/" />)
+
+ 
 }
 
 export default StudentRes

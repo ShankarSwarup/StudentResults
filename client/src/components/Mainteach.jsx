@@ -15,22 +15,34 @@ const Mainteach = () => {
     } 
 
     return (
-      <div>
-       <nav>
-          <input type="checkbox" id="check" />
-          <label for="check" className="checkbtn">
-              <i className="fas fa-bars"></i>
-          </label>
-          <label className="logo">Student Results</label>
-          <ul>
-              <li><Link className="active" to="/mainteach">Home</Link></li>
-              <li><Link  to="/studentdet">Add Student Details</Link></li>
-              <li><Link  to="/results">Add Results</Link></li>
-              <li><button onClick={handle}>Log out</button></li>
-          </ul>
-      </nav>
-      <div className="container">
-          
+      <div className="content">
+      <div className="navigation">
+      <ul>
+          <li className="list active">
+              <Link to="/mainteach" className="link">
+                  <span className="icon"><ion-icon name="home-outline"></ion-icon></span>
+                  <span className="title">Home</span>
+              </Link>
+          </li>
+          <li className="list">
+              <Link to="/studentdet" className="link">
+                  <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
+                  <span className="title">Add Student Details</span>
+              </Link>
+          </li>
+          <li className="list" >
+              <Link to="/results" className="link">
+                  <span className="icon"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                  <span className="title">Add results</span>
+              </Link>
+          </li>
+          <li className="list">
+            <button onClick={handle} className="link">
+            <span className="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+            <span className="title">Log Out</span>
+            </button>
+          </li>
+      </ul>
       </div>
       </div>
     )

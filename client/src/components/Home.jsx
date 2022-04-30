@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/App.css'
 import { Link } from "react-router-dom";
 import { Navigate, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
@@ -8,22 +9,29 @@ const Home = () => {
 
   const Main = () => {
     return (
-      <div>
-       <nav>
-          <input type="checkbox" id="check" />
-          <label for="check" className="checkbtn">
-              <i className="fas fa-bars"></i>
-          </label>
-          <label className="logo">Student Results</label>
-          <ul>
-              <li><Link className="active" to="/">Home</Link></li>
-              <li><Link  to="/form1">Teacher login / signup </Link></li>
-              <li><Link  to="/form2">Student login / signup </Link></li>
-          </ul>
-      </nav>
-      <div className="container">
-          
-      </div>
+      <div className="content">
+      <div className="navigation">
+      <ul>
+          <li className="list active">
+              <Link to="/" className="link">
+                  <span className="icon"><ion-icon name="home-outline"></ion-icon></span>
+                  <span className="title">Home</span>
+              </Link>
+          </li>
+          <li className="list">
+              <Link to="/form1" className="link">
+                  <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
+                  <span className="title">Teacher login / signup</span>
+              </Link>
+          </li>
+          <li className="list" >
+              <Link to="/form2" className="link">
+                  <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
+                  <span className="title">Student login / signup</span>
+              </Link>
+          </li>
+      </ul>
+  </div>
       </div>
     )
   }
