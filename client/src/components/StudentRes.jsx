@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Navigate, useNavigate} from 'react-router-dom'
-
+import '../css/Results.css'
 
 
 
@@ -60,17 +60,27 @@ const StudentRes = () => {
       if(x)
       {
         return(
-          <div>
+          <div class="boxes center">
+            <div className="boxx">
+            <table class="tables">
+              <tr>
+              <th>Subjects</th>
+              <th>Grades</th>
+              </tr>
             {
               sub.map((item)=>{
                 return(
                   <div key="item">
-                  <p>{item.sub}</p>
-                  <p>{item.grade}</p>
+                  <tr>
+                    <td>{item.sub}</td>
+                    <td>{item.grade}</td>
+                  </tr>
                   </div>
                 )
               })
             }
+            </table>
+            </div>
           </div>
         )
       }
@@ -80,16 +90,25 @@ const StudentRes = () => {
     {
         // alert("x");
         return(
-          <div>
-            {
+          <div class="boxes center">
+            <div className="boxx">
+            <table class="tables">
+              <tr>
+              <th>Subjects</th>
+              </tr>
+              {
               back.map((item)=>{
                 return(
                   <div key="item">
-                  <p>{item}</p>
+                    <tr>
+                      <td>{item}</td>
+                    </tr>
                   </div>
                 )
               })
-            }
+              }
+            </table>
+            </div>
           </div>
         )
     }
@@ -97,7 +116,40 @@ const StudentRes = () => {
 
   const Funct = () => {
      return (
-    <div>StudentRes
+      <div className="main center">
+      <div className="box center">
+        <h2 className="headi">Results</h2>
+        <div className="inputs">
+          <form onSubmit={handleSubmit} className="forms">
+            <select value={el} onChange={event => sete(event.target.value)}>
+            <option value="1-1">1-1</option>
+            <option value="1-2">1-2</option>
+            <option value="2-1">2-1</option>
+            <option value="2-2">2-2</option>
+            <option value="3-1">3-1</option>
+            <option value="3-2">3-2</option>
+            <option value="4-1">4-1</option>
+            <option value="4-2">4-2</option>
+            <option value="backlog">backlogs</option>
+            </select>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+      <Resp />
+    </div>
+     )
+  }
+  
+  return ( v ? <Funct/> : <Navigate to ="/" />)
+
+ 
+}
+
+export default StudentRes
+
+
+{/* <div>StudentRes
       <form onSubmit={handleSubmit}>
       <select value={el} onChange={event => sete(event.target.value)}>
         <option value="1-1">1-1</option>
@@ -112,16 +164,6 @@ const StudentRes = () => {
       </select>
       <input type="submit" value="Submit" />
       </form>
-      <Resp />
 
       
-    </div>
-     )
-  }
-  
-  return ( v ? <Funct/> : <Navigate to ="/" />)
-
- 
-}
-
-export default StudentRes
+    </div> */}

@@ -21,7 +21,7 @@
     transition:0.5s;
 }
 .cards:hover{
-    height:650px;
+    height:620px;
 }
 .cards:hover .contents{
     position: absolute;
