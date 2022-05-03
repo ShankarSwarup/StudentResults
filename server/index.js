@@ -57,27 +57,31 @@ app.post('/results',async(req,res)=>{
         // console.log(req.body.files);
         const data = req.body.files;
         const key = Object.keys(data[0]);
+        console.log(key);
         data.map(async(d)=>{
             const user = await excelModel.findOne({"year": String(d.year), "regNo": String(d.regNo), "sem": d.sem});
             if(!user)
             {
-                var book1 = new excelModel({ "year": String(d.year), "regNo": String(d.regNo), "sem": d.sem});
+                const x=[];
+                for(let i=0;i<key.length;i++)
+                {
+                    let y = String(key[i]);
+                    if(y!=="year" && y!=="sem" && y!=="regNo")
+                    {
+                        const te={
+                            "sub":y,
+                            "grade":d[y]
+                        }
+                        x.push(te);
+                    }
+                }
+                var book1 = new excelModel({ "year": String(d.year), "regNo": String(d.regNo), "sem": d.sem , "subject" : x});
                 book1.save(function (err, book) {
                     if (err) return console.error(err);
                     console.log("successful");
                 });
-                for(let i=0;i<key.length;i++)
-                {
-                    let y=String(key[i]);
-                    if(!(y=="year" || y=="regNo" || y=="sem"))
-                    {
-                    const filter = {"regNo":d.regNo,"year":d.year,"sem":d.sem};
-                    const update = { $push: {"subject": {sub:y,grade:String(d[y])}}}
-                    let doc = await excelModel.findOneAndUpdate(filter, update, {
-                        new: true
-                        });
-                    }
-                }
+                // console.log(x);
+                // console.log(" ");
             }
             else
             {
@@ -93,10 +97,8 @@ app.post('/results',async(req,res)=>{
                             {
                                 if(user.subject[x].sub === y)
                                 {
-                                    // console.log(d.regNo , user.subject[x].sub , user.subject[x].grade , d[y]);
                                     if(user.subject[x].grade!=d[y])
                                     {
-                                        // console.log(d.regNo , user.subject[x].grade , d[y]);
                                         user.subject[x].grade = d[y];
                                         user.save(function (err, book) {
                                             if (err) return console.error(err);
