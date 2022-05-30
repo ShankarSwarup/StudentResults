@@ -48,7 +48,7 @@ export default class SubjectList extends Component {
        const depart = this.state.dep;
        const semister = this.state.sems;
 
-       axios.post('http://localhost:3001/findsub',{
+       axios.post('https://vignancalendar.herokuapp.com/findsub',{
         depart,
         semister
        }).then(res=>this.setState({selectOptions:res.data.data})).catch(err=> console.log(err))

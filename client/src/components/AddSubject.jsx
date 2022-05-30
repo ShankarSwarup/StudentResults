@@ -8,7 +8,7 @@ const AddSubject = () => {
     const handlesubmit = async(e) => {
         e.preventDefault();
 
-        const res = await fetch('http://localhost:3001/addsub',{
+        const res = await fetch('https://vignancalendar.herokuapp.com/addsub',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'

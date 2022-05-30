@@ -75,7 +75,7 @@ export default class Supply extends Component {
            
     //  console.log(this.state.xi);
      
-        axios.post('http://localhost:3001/findstudent',{
+        axios.post('https://vignancalendar.herokuapp.com/findstudent',{
         year,
         depart
        }).then(res=>{
@@ -97,7 +97,7 @@ export default class Supply extends Component {
        }).catch(err=> console.log(err))
 
 
-       axios.post('http://localhost:3001/findsub',{
+       axios.post('https://vignancalendar.herokuapp.com/findsub',{
         depart,
         semister
        }).then(res=>{
@@ -145,7 +145,7 @@ export default class Supply extends Component {
 
     
 
-    axios.post('http://localhost:3001/decres',{
+    axios.post('https://vignancalendar.herokuapp.com/decres',{
      year,
      reg,
      a,

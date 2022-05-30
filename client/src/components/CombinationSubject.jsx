@@ -17,7 +17,7 @@ export default class CombinationSubject extends Component {
   }
 
  async getOptions(){
-    const res = await axios.post('http://localhost:3001/sub')
+    const res = await axios.post('https://vignancalendar.herokuapp.com/sub')
     const data = res.data.data
     const depths = ['CSE','ECE','EEE','CIVIL','MECH','ECM','IT']
     const sem = ['1-1','1-2','2-1','2-2','3-1','3-2','4-1','4-2']
@@ -60,7 +60,7 @@ export default class CombinationSubject extends Component {
        const depart = this.state.dep;
        const semister = this.state.sems;
 
-       axios.post('http://localhost:3001/mansub',{
+       axios.post('https://vignancalendar.herokuapp.com/mansub',{
         subject,
         depart,
         semister
@@ -74,7 +74,7 @@ export default class CombinationSubject extends Component {
     const depart = this.state.dep;
     const semister = this.state.sems;
 
-    axios.post('http://localhost:3001/mannsub',{
+    axios.post('https://vignancalendar.herokuapp.com/mannsub',{
      subject,
      depart,
      semister
