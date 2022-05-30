@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import '../css/studad.css';
 
 export default class AddStudent extends Component {
 
@@ -106,12 +107,56 @@ export default class AddStudent extends Component {
   render() {
     // console.log(this.state.selectOptions)
     return (
-      <div>
+      <div id="bd">
+        <div id="stad" className="shadow-sm p-3 mb-5 bg-white rounded">
         <h1>Student Admission</h1>
-        <h2>Fill the Student info</h2>
-        <form >
+        <div id="head">
+        <h3>Fill the Student info</h3>
+        <Link to="/studentdet" className="lin" style={{ textDecoration: 'none' }}>Upload Through Excel</Link>
+        </div>
+        <div id="forms">
+        <form>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Full Name</label>
+            <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Full Name" value={this.state.name} onChange={this.handlename.bind(this)}/>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput2">Registration Number</label>
+            <input type="text" className="form-control" id="exampleFormControlInput2" placeholder="Enter Registration Number"  value={this.state.roll} onChange={this.handleroll.bind(this)}/>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput3">Email</label>
+            <input type="email" className="form-control" id="exampleFormControlInput3" placeholder="Enter Email address" value={this.state.email} onChange={this.handleemail.bind(this)}/>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput4">Graduation Year</label>
+            <input type="text" className="form-control" id="exampleFormControlInput4" placeholder="Enter Graduation Year"  value={this.state.year} onChange={this.handleyear.bind(this)} />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput5">Phone Number</label>
+            <input type="text" className="form-control" id="exampleFormControlInput5" placeholder="Enter Phone Number"  value={this.state.phn} onChange={this.handlephn.bind(this)} />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput6">Date of Birth</label>
+            <input type="date" className="form-control" id="exampleFormControlInput6" value={this.state.dob} onChange={this.handledob.bind(this)} />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Gender</label>
+            <Select class="form-control" id="exampleFormControlSelect1" options={this.state.gen} onChange={this.handlegend.bind(this)} placeholder="Select Gender" />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Department</label>
+            <Select class="form-control" id="exampleFormControlSelect2" options={this.state.dept} onChange={this.handledept.bind(this)} placeholder="Select Department" />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Enter Address</label>
+            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={this.state.add} onChange={this.handleadd.bind(this)}></textarea>
+          </div>
+           <button className="btn btn-success" onClick={this.handlesubmit.bind(this)}>Add Details</button>
+        </form>
+        {/* <form >
         <label htmlFor="name">Full Name:</label>
-        <input type="text" id="name" value={this.state.name} onChange={this.handlename.bind(this)}/>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Full Name" value={this.state.name} onChange={this.handlename.bind(this)}/>
         <label htmlFor="roll">Registration Number:</label>
         <input type="text" id="roll" value={this.state.roll} onChange={this.handleroll.bind(this)}/>
         <label htmlFor="ema">Email id:</label>
@@ -128,9 +173,10 @@ export default class AddStudent extends Component {
         <input type="text" id="phn" value={this.state.phn} onChange={this.handlephn.bind(this)}/>
         <label htmlFor="address">Address</label>
         <input type="text" id="address" value={this.state.add} onChange={this.handleadd.bind(this)} />
-        <button onClick={this.handlesubmit.bind(this)}>Add</button>
-        </form>
-         <Link to="/studentdet" className="link">Upload Through Excel</Link>
+        <button class="btn btn-success" onClick={this.handlesubmit.bind(this)}>Add</button>
+        </form> */}
+        </div>
+      </div>
       </div>
     )
   }

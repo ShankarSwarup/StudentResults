@@ -88,20 +88,46 @@ export default class CombinationSubject extends Component {
   render() {
     // console.log(this.state.selectOptions)
     return (
-      <div>
-        <h1>Add / Delete Subject Combination</h1>
-        <h2>Add / Delete Subject Combination</h2>
-        <form >
-        <label htmlFor="sub">Select Subject:</label>
-        <Select id="sub" options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
-        <label htmlFor="dept">Select Department:</label>
-        <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
-        <label htmlFor="sem">Select Sem:</label>
-        <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
-        <button onClick={this.handlesubmit.bind(this)}>Add</button>
-        <button onClick={this.handlesubmits.bind(this)}>Delete</button>
-        </form>
+      <div id="bd">
+      <div id="stad" className="shadow-sm p-3 mb-5 bg-white rounded">
+      <h1>Add / Delete Subject Combination</h1>
+      <div id="head">
+      <h3>Add / Delete Subject Combination</h3>
       </div>
+      <div id="forms">
+      <form>
+      <div class="form-group">
+          <label for="exampleFormControlSelect2">Select Subject:</label>
+          <Select class="form-control" id="exampleFormControlSelect2"  options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput4">Select Department:</label>
+          <Select class="form-control" id="exampleFormControlInput4"  options={this.state.dept} onChange={this.handledept.bind(this)} />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput5">Subject Department:</label>
+          <Select class="form-control" id="exampleFormControlInput5" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+        </div>
+        <button className="btn btn-success" style={{marginRight:'10px'}} onClick={this.handlesubmit.bind(this)}>Add</button>
+        <button className="btn btn-danger" style={{marginLeft:'10px'}} onClick={this.handlesubmits.bind(this)}>Delete</button>
+      </form>
+      </div>
+    </div>
+    </div>
+      // <div>
+      //   <h1>Add / Delete Subject Combination</h1>
+      //   <h2>Add / Delete Subject Combination</h2>
+      //   <form >
+      //   <label htmlFor="sub">Select Subject:</label>
+      //   <Select id="sub" options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
+      //   <label htmlFor="dept">Select Department:</label>
+      //   <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
+      //   <label htmlFor="sem">Select Sem:</label>
+      //   <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+      //   <button onClick={this.handlesubmit.bind(this)}>Add</button>
+      //   <button onClick={this.handlesubmits.bind(this)}>Delete</button>
+      //   </form>
+      // </div>
     )
   }
 }

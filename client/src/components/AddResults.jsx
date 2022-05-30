@@ -161,38 +161,82 @@ export default class AddResults extends Component {
   render() {
 
     return (
-      <div>
-        <h1>Declare Result</h1>
-        <form >
-        <label htmlFor="dept">Select Department:</label>
-        <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
-        <label htmlFor="sem">Select Semister:</label>
-        <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
-        <label htmlFor="year">Select Graduation Year:</label>
-        <input type="text" value={this.state.year} onChange={this.handleyear.bind(this)} />
-        <button onClick={this.handledet.bind(this)}>Get Details</button>
-        
-        <div>
-        <label htmlFor="Reg">Registration Number</label>
-        <Select id="Reg" options={this.state.roll} onChange={this.handleroll.bind(this)} />
-        {
-          
-          this.state.selectOptions.map(di=>{
-            return(
-                <div key={this.state.selectOptions.indexOf(di)}>
-                <label htmlFor={di}>{di}</label>
-                <Select id={di}  options={this.state.grad} onChange={(e)=> this.handlegrad(e,di)} />
-                </div>
-            )
-          }) 
-        }
+      <div id="bd">
+        <div id="stad" className="shadow-sm p-3 mb-5 bg-white rounded">
+        <h1>Student Results</h1>
+        <div id="head">
+        <h3>Fill the Results</h3>
+        <Link to="/results" className="lin" style={{textDecoration:'none'}} >Upload Through Excel</Link>
+        <Link to="/supply" className="lin" style={{textDecoration:'none'}}>Add Supply Results Here</Link>
         </div>
-        <button onClick={this.handlesubmits.bind(this)}>Add Results</button>
+        <div id="forms">
+        <form>
+        <div class="form-group">
+            <label for="exampleFormControlSelect2">Department</label>
+            <Select class="form-control" id="exampleFormControlSelect2" options={this.state.dept} onChange={this.handledept.bind(this)} placeholder="Select Department" />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Semister</label>
+            <Select class="form-control" id="exampleFormControlInput1" placeholder="Select Semister" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput4">Graduation Year</label>
+            <input type="text" className="form-control" id="exampleFormControlInput4" placeholder="Enter Graduation Year"  value={this.state.year} onChange={this.handleyear.bind(this)} />
+          </div>
+           <button className="btn btn-primary" style={{ marginBottom:'10px'}} onClick={this.handledet.bind(this)}>Get Details</button>
+           <div class="form-group">
+            <label for="exampleFormControlInput3">Registration Number</label>
+            <Select class="form-control" id="exampleFormControlInput3" placeholder="Enter Graduation Year" options={this.state.roll} onChange={this.handleroll.bind(this)} />
+          </div>
+          <div class="form-group overflow-auto at">
+          {
+              this.state.selectOptions.map(di=>{
+                return(
+                    <div class="form-group overflow-auto" key={this.state.selectOptions.indexOf(di)}>
+                    <label for="exampleFormControlInput4">{di}</label>
+                    <Select class="form-control sel" id="exampleFormControlInput4"  options={this.state.grad} onChange={(e)=> this.handlegrad(e,di)} />
+                    </div>
+                )
+              }) 
+            }
+          </div>
+         <button className="btn btn-success" onClick={this.handlesubmits.bind(this)}>Add Results</button>
         </form>
-
-        <Link to="/results" className="link">Upload Through Excel</Link>
-        <Link to="/supply" className="link" >Add Supply Results Here</Link>
+        </div>
       </div>
+      </div>
+      // <div>
+      //   <h1>Declare Result</h1>
+      //   <form >
+      //   <label htmlFor="dept">Select Department:</label>
+      //   <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
+      //   <label htmlFor="sem">Select Semister:</label>
+      //   <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+      //   <label htmlFor="year">Select Graduation Year:</label>
+      //   <input type="text" value={this.state.year} onChange={this.handleyear.bind(this)} />
+      //   <button onClick={this.handledet.bind(this)}>Get Details</button>
+        
+      //   <div>
+      //   <label htmlFor="Reg">Registration Number</label>
+      //   <Select id="Reg" options={this.state.roll} onChange={this.handleroll.bind(this)} />
+      //   {
+          
+      //     this.state.selectOptions.map(di=>{
+      //       return(
+      //           <div key={this.state.selectOptions.indexOf(di)}>
+      //           <label htmlFor={di}>{di}</label>
+      //           <Select id={di}  options={this.state.grad} onChange={(e)=> this.handlegrad(e,di)} />
+      //           </div>
+      //       )
+      //     }) 
+      //   }
+      //   </div>
+      //   <button onClick={this.handlesubmits.bind(this)}>Add Results</button>
+      //   </form>
+
+      //   <Link to="/results" className="link">Upload Through Excel</Link>
+      //   <Link to="/supply" className="link" >Add Supply Results Here</Link>
+      // </div>
     )
   }
 }
