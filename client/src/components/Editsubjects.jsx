@@ -10,7 +10,7 @@ const Editsubjects = () => {
 
         // console.log(lreg,lpassword);
 
-        const res = await fetch('https://vignancalendar.herokuapp.com/editsub',{
+        const res = await fetch('https://vignanminiproject.herokuapp.com/editsub',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'

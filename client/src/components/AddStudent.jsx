@@ -84,7 +84,7 @@ export default class AddStudent extends Component {
        const address = this.state.add;
        const year = this.state.year;
        
-       axios.post('https://vignancalendar.herokuapp.com/addstud',{
+       axios.post('https://vignanminiproject.herokuapp.com/addstud',{
         depart,
         name,
         reg,

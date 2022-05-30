@@ -22,7 +22,7 @@ const StudentRes = () => {
     // console.log(reg,dept,year);
 
 
-    const res = await fetch('https://vignancalendar.herokuapp.com/gets',{
+    const res = await fetch('https://vignanminiproject.herokuapp.com/gets',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'

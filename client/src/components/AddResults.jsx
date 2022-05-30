@@ -75,7 +75,7 @@ export default class AddResults extends Component {
            
     //  console.log(this.state.xi);
      
-        axios.post('https://vignancalendar.herokuapp.com/findstudent',{
+        axios.post('https://vignanminiproject.herokuapp.com/findstudent',{
         year,
         depart
        }).then(res=>{
@@ -97,7 +97,7 @@ export default class AddResults extends Component {
        }).catch(err=> console.log(err))
 
 
-       axios.post('https://vignancalendar.herokuapp.com/findsub',{
+       axios.post('https://vignanminiproject.herokuapp.com/findsub',{
         depart,
         semister
        }).then(res=>{
@@ -145,7 +145,7 @@ export default class AddResults extends Component {
 
     
 
-    axios.post('https://vignancalendar.herokuapp.com/decres',{
+    axios.post('https://vignanminiproject.herokuapp.com/decres',{
      year,
      reg,
      a,
