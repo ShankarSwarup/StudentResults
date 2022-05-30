@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Navigate, useNavigate} from 'react-router-dom'
-import '../css/Results.css'
+// import '../css/Results.css'
 
 
 
@@ -10,19 +10,28 @@ const StudentRes = () => {
   const [sub,setsub] = useState([]);
   const [back,setback] = useState([]);
   const [val,setval] = useState(false);
-  const [v,setv] = useState(localStorage.getItem('reg'));
+  const [v,setv] = useState(localStorage.getItem('profile'));
+  const [xi,setxi] = useState(JSON.parse(localStorage.getItem('profile')));
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     // console.log(v);
+    var reg = xi["Reg"];
+    var dept = xi["Dept"];
+    var year = xi["Year"];
+    // console.log(reg,dept,year);
 
-    const res = await fetch('https://vignanminiproject.herokuapp.com/gets',{
+
+    const res = await fetch('http://localhost:3001/gets',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'
         },
         body: JSON.stringify({
             el,
-            v
+            reg,
+            dept,
+            year,
         })
     })
     const data = await res.json();

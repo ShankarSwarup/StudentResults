@@ -13,6 +13,10 @@ const excelSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    "dept":{
+        type:String,
+        required:true
+    },
     "subject":[
         {
             "sub":{

@@ -25,13 +25,19 @@ const Mainteach = () => {
               </Link>
           </li>
           <li className="list">
-              <Link to="/studentdet" className="link">
+              <Link to="/addstudent" className="link">
                   <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
                   <span className="title">Add Student Details</span>
               </Link>
           </li>
+          <li className="list">
+              <Link to="/adddet" className="link">
+                  <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
+                  <span className="title">Subjects</span>
+              </Link>
+          </li>
           <li className="list" >
-              <Link to="/results" className="link">
+              <Link to="/addresults" className="link">
                   <span className="icon"><ion-icon name="stats-chart-outline"></ion-icon></span>
                   <span className="title">Add results</span>
               </Link>

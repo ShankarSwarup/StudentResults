@@ -38,14 +38,6 @@ const Profile = () => {
                 <td>{x.Gender}</td>
               </tr>
               <tr>
-                <td>State</td>
-                <td>{x.State}</td>
-              </tr>
-              <tr>
-                <td>Country</td>
-                <td>{x.Country}</td>
-              </tr>
-              <tr>
                 <td>Address</td>
                 <td>{x.Address}</td>
               </tr>

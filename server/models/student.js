@@ -26,14 +26,6 @@ const stud = new mongoose.Schema(
             type:String,
             required:true
         },
-        Country:{
-            type:String,
-            required:true
-        },
-        State:{
-            type:String,
-            required:true
-        },
         Phn:{
             type:String,
             required:true
@@ -46,6 +38,22 @@ const stud = new mongoose.Schema(
             type:String,
             required:true
         },
+        Year:{
+            type:String,
+            required:true
+        },
+        Links:[
+            {
+                "title":{
+                    type:String,
+                    required:true
+                },
+                "link":{
+                    type:String,
+                    required:true
+                }
+            }
+        ]
     }
 );
 
