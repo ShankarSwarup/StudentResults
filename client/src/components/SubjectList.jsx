@@ -12,6 +12,7 @@ export default class SubjectList extends Component {
       sems:'',
       dept:[],
       sem:[],
+      i:0,
     }
   }
 
@@ -63,26 +64,72 @@ export default class SubjectList extends Component {
   render() {
     // console.log(this.state.selectOptions)
     return (
-      <div>
-        <h1>Subjects Combination info</h1>
-        <h2>View Subjects Combination info</h2>
-        <form >
-        <label htmlFor="dept">Select Department:</label>
-        <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
-        <label htmlFor="sem">Select Sem:</label>
-        <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
-        <button onClick={this.handlesubmit.bind(this)}>Check</button>
-        </form>
-        <div>
-        {
-             this.state.selectOptions.map(d=>{
+      <div id="bd">
+      <div id="stad" className="shadow-sm p-3 mb-5 bg-white rounded">
+      <h1>Subject Combination info</h1>
+      <div id="head">
+      <h3>View Subjects Combination info</h3>
+      </div>
+      <div id="forms">
+      <form>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlInput4">Select Department:</label>
+          <Select class="form-control" placeholder="Select Department" id="exampleFormControlInput4"  options={this.state.dept} onChange={this.handledept.bind(this)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlInput5">Select Sem:</label>
+          <Select class="form-control" placeholder="Select Sem" id="exampleFormControlInput5" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+        </div>
+        <button className="btn btn-success" style={{marginBottom:'20px'}}onClick={this.handlesubmit.bind(this)}>Check</button>
+      </form>
+      </div>
+      <div id='tabl'>
+      <table className="table table-bordered table-striped table-hover">
+      <thead className="thead-light">
+          <tr>
+          <th scope="col">Subject Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Semister</th>
+          </tr>
+      </thead>
+      <tbody>
+      {
+            this.state.selectOptions.map(d=>{
                 return(
-                    <p>{d}</p>
+                    <tr key={this.state.selectOptions.indexOf(d)}>
+                    {/* <th scope="row">{this.setState.i}</th> */}
+                    <td>{d}</td>
+                    <td>{this.state.dep}</td>
+                    <td>{this.state.sems}</td>
+                    </tr>
                 )
             })
-        }
-        </div>
+      }
+      </tbody>
+      </table>
       </div>
+    </div>
+    </div>
+      // <div>
+      //   <h1>Subjects Combination info</h1>
+      //   <h2>View Subjects Combination info</h2>
+      //   <form >
+      //   <label htmlFor="dept">Select Department:</label>
+      //   <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
+      //   <label htmlFor="sem">Select Sem:</label>
+      //   <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+      //   <button onClick={this.handlesubmit.bind(this)}>Check</button>
+      //   </form>
+      //   <div>
+      //   {
+      //        this.state.selectOptions.map(d=>{
+      //           return(
+      //               <p>{d}</p>
+      //           )
+      //       })
+      //   }
+      //   </div>
+      // </div>
     )
   }
 }

@@ -4,18 +4,20 @@
     box-sizing: border-box;
 }
 #bd{
-    height:100vh;
+    min-height:100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: antiquewhite;
 }
 #stad{
-    margin:20px;
+    margin:40px;
     padding:20px;
     height:920px;
-    width:750px;
+    width:90%;
     /* border:2px solid #000; */
+    background-color: #fff;
     box-shadow: 0 35px 80px rgba(0,0,0,0.15);
     transition:0.5s;
 }
@@ -37,6 +39,7 @@
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin-bottom:10px;
 }
 
 .lin:hover{
@@ -45,5 +48,15 @@
 }
 .at {
     height:350px;
+    overflow-y: scroll;
+}
+
+#tab{
+    height:720px;
+    overflow-y: scroll;
+}
+
+#tabl{
+    height:520px;
     overflow-y: scroll;
 }
