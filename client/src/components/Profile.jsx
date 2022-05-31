@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate} from 'react-router-dom'
 import '../css/Pro.css'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
   const [x,setx] = useState(JSON.parse(localStorage.getItem('profile')));
   const Func = () => {
     return (
+      <div>
+        <nav className="navbar navbar-expand-lg bg-dark navbar-dark" style={{margin:'0px'}}>
+        <div class="container-fluid">
+          <Link class="navbar-brand" to="/mainstud">Student Results</Link>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <Link class="nav-link active" aria-current="page" to="/mainstud">Home</Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link active" aria-current="page" to="/studentres">Your Results</Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link active" aria-current="page" to="/profile">Your Profile</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </nav>
         <div id="bd" >
         <div id="stadi" className="shadow-sm p-3 mb-5 bg-white rounded">
           <div id="pic">
@@ -13,24 +36,27 @@ const Profile = () => {
              <h4>{x.Name}</h4>
              <h4>{x.Dept}</h4>
              <h4>{x.Reg}</h4>
-             <table className="table  table-striped table-hover ">
+             <div id="con" style={{marginTop:'20px'}}>
+             <table className="table  table-hover" style={{width:'80%'}}>
               <tbody>
-                <tr style={{height:'60px',marginBottom:'10px'}}>
-                  <th style={{fontSize:'25px'}}>Student Email:</th>
-                  <td style={{fontSize:'20px'}}>{x.Email}</td>
+                <tr >
+                  <th >Student Email:</th>
+                  <td >{x.Email}</td>
                 </tr>
-                <tr style={{height:'60px',marginBottom:'10px'}}>
-                  <th style={{fontSize:'25px'}}>Student Gender:</th>
-                  <td style={{fontSize:'20px'}}>{x.Gender}</td>
+                <tr >
+                  <th >Student Gender:</th>
+                  <td >{x.Gender}</td>
                 </tr>
-                <tr style={{height:'60px',marginBottom:'10px'}}>
-                  <th style={{fontSize:'25px'}}>Student Address:</th>
-                  <td style={{fontSize:'20px'}}>{x.Address}</td>
+                <tr>
+                  <th >Student Address:</th>
+                  <td >{x.Address}</td>
                 </tr>
               </tbody>
             </table>
+             </div>
           </div>
         </div>
+      </div>
       </div>
       // <div className="item">
       //   <div class="cards">
