@@ -61,9 +61,9 @@ const Func = () => {
                     <form onSubmit={handleSubmit}>
                     <h2>Student Details Upload</h2>
                     <label htmlFor="file" id="lab">Add file</label>
-                    <input type="file" id="file" onChange={onChange} style={{display : 'none'}}/>
+                    <input autocomplete="off" type="file" id="file" onChange={onChange} style={{display : 'none'}}/>
                     <p>File Name : <strong>{name}</strong></p>
-                    <input type="submit"  />
+                    <input autocomplete="off" type="submit"  />
                     </form>
                 </div>
             </div>

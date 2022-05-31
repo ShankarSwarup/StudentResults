@@ -76,13 +76,13 @@ const AddSubject = () => {
     <form onSubmit={handlesubmit}>
     <div class="form-group">
         <label for="exampleFormControlSelect2">Subject Name:</label>
-        <input class="form-control" id="exampleFormControlSelect2" type="text"  value={subj} onChange={event => setsubj(event.target.value.toLowerCase())} placeholder="Enter Subject Name:"/>
+        <input autocomplete="off" class="form-control" id="exampleFormControlSelect2" type="text"  value={subj} onChange={event => setsubj(event.target.value.toLowerCase())} placeholder="Enter Subject Name:"/>
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput4">Subject Code:</label>
-        <input type="text" className="form-control" id="exampleFormControlInput4" value={cod} onChange={event => setcod(event.target.value)} placeholder="Enter Subject Code:"/>
+        <input autocomplete="off" type="text" className="form-control" id="exampleFormControlInput4" value={cod} onChange={event => setcod(event.target.value)} placeholder="Enter Subject Code:"/>
       </div>
-      <input type="submit" value="submit" className="lin" />
+      <input autocomplete="off" type="submit" value="submit" className="lin" />
     </form>
     </div>
   </div>

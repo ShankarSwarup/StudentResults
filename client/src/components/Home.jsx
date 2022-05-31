@@ -33,12 +33,6 @@ const Home = () => {
         </nav>
         <div id="hm">
         </div>
-        <footer class="bg-dark text-center text-white">
-        <div class="text-center p-3" style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}>
-          © 2020 Copyright :
-          <Link style={{textDecoration:'none'}} class="text-white" to="/"> ShankarSwarup</Link>
-        </div>
-         </footer>
       </div>
 //       <div className="content">
 //       <div className="navigation">

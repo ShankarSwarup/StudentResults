@@ -48,12 +48,6 @@ const MainStud = () => {
         </nav>
         <div id="hm">
         </div>
-        <footer class="bg-dark text-center text-white">
-        <div class="text-center p-3" style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}>
-          © 2020 Copyright:
-          <Link style={{textDecoration:'none'}} class="text-white" to="/mainstud">ShankarSwarup</Link>
-        </div>
-         </footer>
         {/* <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto" >
                     <div class="container-fluid px-4">

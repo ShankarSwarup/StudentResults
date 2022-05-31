@@ -154,39 +154,39 @@ export default class AddStudent extends Component {
         <form>
           <div class="form-group">
             <label for="exampleFormControlInput1">Full Name</label>
-            <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Full Name" value={this.state.name} onChange={this.handlename.bind(this)}/>
+            <input autocomplete="off" type="text" className="form-control" id="exampleFormControlInput1" placeholder="Enter Full Name" value={this.state.name} onChange={this.handlename.bind(this)}/>
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput2">Registration Number</label>
-            <input type="text" className="form-control" id="exampleFormControlInput2" placeholder="Enter Registration Number"  value={this.state.roll} onChange={this.handleroll.bind(this)}/>
+            <input autocomplete="off" type="text" className="form-control" id="exampleFormControlInput2" placeholder="Enter Registration Number"  value={this.state.roll} onChange={this.handleroll.bind(this)}/>
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput3">Email</label>
-            <input type="email" className="form-control" id="exampleFormControlInput3" placeholder="Enter Email address" value={this.state.email} onChange={this.handleemail.bind(this)}/>
+            <input autocomplete="off" type="email" className="form-control" id="exampleFormControlInput3" placeholder="Enter Email address" value={this.state.email} onChange={this.handleemail.bind(this)}/>
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput4">Graduation Year</label>
-            <input type="text" className="form-control" id="exampleFormControlInput4" placeholder="Enter Graduation Year"  value={this.state.year} onChange={this.handleyear.bind(this)} />
+            <input autocomplete="off" type="text" className="form-control" id="exampleFormControlInput4" placeholder="Enter Graduation Year"  value={this.state.year} onChange={this.handleyear.bind(this)} />
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput5">Phone Number</label>
-            <input type="text" className="form-control" id="exampleFormControlInput5" placeholder="Enter Phone Number"  value={this.state.phn} onChange={this.handlephn.bind(this)} />
+            <input autocomplete="off" type="text" className="form-control" id="exampleFormControlInput5" placeholder="Enter Phone Number"  value={this.state.phn} onChange={this.handlephn.bind(this)} />
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput6">Date of Birth</label>
-            <input type="date" className="form-control" id="exampleFormControlInput6" value={this.state.dob} onChange={this.handledob.bind(this)} />
+            <input autocomplete="off" type="date" className="form-control" id="exampleFormControlInput6" value={this.state.dob} onChange={this.handledob.bind(this)} />
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Gender</label>
-            <Select class="form-control" id="exampleFormControlSelect1" options={this.state.gen} onChange={this.handlegend.bind(this)} placeholder="Select Gender" />
+            <Select autocomplete="off" class="form-control" id="exampleFormControlSelect1" options={this.state.gen} onChange={this.handlegend.bind(this)} placeholder="Select Gender" />
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect2">Department</label>
-            <Select class="form-control" id="exampleFormControlSelect2" options={this.state.dept} onChange={this.handledept.bind(this)} placeholder="Select Department" />
+            <Select autocomplete="off"class="form-control" id="exampleFormControlSelect2" options={this.state.dept} onChange={this.handledept.bind(this)} placeholder="Select Department" />
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Enter Address</label>
-            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={this.state.add} onChange={this.handleadd.bind(this)}></textarea>
+            <textarea autocomplete="off" className="form-control" id="exampleFormControlTextarea1" rows="3" value={this.state.add} onChange={this.handleadd.bind(this)}></textarea>
           </div>
            <button className="btn btn-success" onClick={this.handlesubmit.bind(this)}>Add Details</button>
         </form>

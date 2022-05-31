@@ -135,15 +135,15 @@ export default class CombinationSubject extends Component {
       <form>
       <div class="form-group">
           <label for="exampleFormControlSelect2">Select Subject:</label>
-          <Select class="form-control" id="exampleFormControlSelect2"  placeholder="Select Subject" options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
+          <Select autocomplete="off" class="form-control" id="exampleFormControlSelect2"  placeholder="Select Subject" options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
         </div>
         <div class="form-group">
           <label for="exampleFormControlInput4">Select Department:</label>
-          <Select class="form-control" id="exampleFormControlInput4" placeholder="Select Department" options={this.state.dept} onChange={this.handledept.bind(this)} />
+          <Select autocomplete="off" class="form-control" id="exampleFormControlInput4" placeholder="Select Department" options={this.state.dept} onChange={this.handledept.bind(this)} />
         </div>
         <div class="form-group">
           <label for="exampleFormControlInput5">Select Sem:</label>
-          <Select class="form-control" id="exampleFormControlInput5" placeholder="Select Sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
+          <Select autocomplete="off" class="form-control" id="exampleFormControlInput5" placeholder="Select Sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
         </div>
         <button className="btn btn-success" style={{marginRight:'10px'}} onClick={this.handlesubmit.bind(this)}>Add</button>
         <button className="btn btn-danger" style={{marginLeft:'10px'}} onClick={this.handlesubmits.bind(this)}>Delete</button>

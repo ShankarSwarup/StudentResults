@@ -93,9 +93,9 @@ const Form2 = () => {
                 <div className="formBx">
                     <form onSubmit={handlesubmit}>
                         <h2>User Sign In</h2>
-                        <input type="text" value={lreg} onChange={event => setlreg(event.target.value)} placeholder="Registartion id" id="Email"/>
-                        <input type="text" value={lpassword} onChange={event => setlpassword(String(event.target.value))} placeholder="Password" id="Password"/>
-                        <input type="submit" id="signin" value='Sign in'/>
+                        <input autocomplete="off" type="text" value={lreg} onChange={event => setlreg(event.target.value)} placeholder="Registartion id" id="Email"/>
+                        <input autocomplete="off" type="text" value={lpassword} onChange={event => setlpassword(String(event.target.value))} placeholder="Password" id="Password"/>
+                        <input autocomplete="off" type="submit" id="signin" value='Sign in'/>
                         <p className="signup">Do you want to change the password ?<a  onClick={toggleForm1}>Change Password</a></p>
                     </form>
                 </div>
@@ -104,10 +104,10 @@ const Form2 = () => {
                 <div className="formBx">
                     <form onSubmit={handlesubmit1}>
                         <h2>Change Password</h2>
-                        <input type="text"  value={reg} onChange={event => setreg(event.target.value)}  placeholder="Registration id"/>
-                        <input type="text"  value={pass} onChange={event => setpass(event.target.value)} placeholder="Old Password" id="password"/>
-                        <input type="text"  value={password} onChange={event => setpassword(event.target.value)} placeholder="New Password"/>
-                        <input type="submit" id="signup" value='Change'/>
+                        <input autocomplete="off" type="text"  value={reg} onChange={event => setreg(event.target.value)}  placeholder="Registration id"/>
+                        <input autocomplete="off" type="text"  value={pass} onChange={event => setpass(event.target.value)} placeholder="Old Password" id="password"/>
+                        <input autocomplete="off" type="text"  value={password} onChange={event => setpassword(event.target.value)} placeholder="New Password"/>
+                        <input autocomplete="off" type="submit" id="signup" value='Change'/>
                         <p className="signup">Already have an account ?<a  onClick={toggleForm1}>Sign in</a></p>
                     </form>
                 </div>
