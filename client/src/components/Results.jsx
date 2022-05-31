@@ -6,10 +6,12 @@ import * as XLSX from "xlsx";
 const Results = () => {
   const [files,setfiles] = useState([]);
   const navigate = useNavigate();
+  const [name,setName] = useState("");
   const [te,sette] =  useState(localStorage.getItem('tid'));
 
 
   const onChange = (e) => {
+    setName(e.target.files[0]["name"]);
     const [file] = e.target.files;
     const reader = new FileReader();
 
@@ -66,9 +68,10 @@ const Func = () => {
                 </div>
                 <div className="formBx">
                     <form onSubmit={handleSubmit}>
-                    <h2>Student Results</h2>
+                    <h2>Student Results Upload</h2>
                     <label htmlFor="file" id="lab">Add file</label>
                     <input type="file" id="file" onChange={onChange} style={{display : 'none'}}/>
+                    <p>File Name : <strong>{name}</strong></p>
                     <input type="submit"  />
                     </form>
                 </div>

@@ -16,7 +16,6 @@ import SubjectList from "./components/SubjectList";
 import AddStudent from "./components/AddStudent";
 import AddResults from "./components/AddResults";
 import Supply from "./components/Supply";
-import DetHome from "./components/DetHome";
 
 export default function App() {
   return (
@@ -39,7 +38,6 @@ export default function App() {
           <Route path="addstudent" element={<AddStudent />} />
           <Route path="addresults" element={<AddResults />} />
           <Route path="supply" element={<Supply />} />
-          <Route path="adddet" element={<DetHome />} />
       </Routes>
     </BrowserRouter>
   );

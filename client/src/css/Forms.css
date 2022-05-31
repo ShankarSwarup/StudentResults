@@ -101,9 +101,9 @@
 #lab {
     position: relative;
     width:100%;
-    /* text-align: center; */
+    text-align: center;
     padding: 10px;
-    background: #eb1db1;
+    background: #298a7c;
     color: #fff;
     border: none;
     outline: none;

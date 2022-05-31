@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+  .fileupload{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #5256ad;
+  }
+  input[type="file"]
+  {
+    visibility: hidden;
+  }
+  #txt
+  {
+    width: 90%;
+    margin-bottom:20px;
+    background: transparent;
+    border: 2px solid #fff;
+    color:#fff;
+    border-radius: 5px;
+  }
+  #hel{
+      color:#fff;
+      margin:10px;
+  }
+  ::placeholder {
+    color: #fff;
+  }
+  #bt
+  {
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: 500;
+    width:80%;
+    border: none;
+    outline: none;
+    background: #fff;
+    color: #5256ad;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .drag-area{
+    border: 2px dashed #fff;
+    height: 500px;
+    width: 500px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* padding:10px; */
+  }
+  .drag-area.active{
+    border: 2px solid #fff;
+  }
+  .drag-area .icon{
+    font-size: 70px;
+    color: #fff;
+  }
+  .drag-area header{
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+  }
+  .drag-area span{
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+    margin: 10px 0 15px 0;
+  }
+  .drag-area button{
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: #fff;
+    color: #5256ad;
+    border-radius: 5px;
+    cursor: pointer;
+    margin:10px;
+  }
+  .drag-area img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+  }

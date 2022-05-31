@@ -27,7 +27,7 @@
 #hm{
     --bs-bg-opacity: 1;
     background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
-    min-height:90vh;
+    min-height:87vh;
 }
 #stadi{
     margin:40px;

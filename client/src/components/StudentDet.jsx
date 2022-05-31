@@ -5,9 +5,11 @@ import { Navigate ,useNavigate} from 'react-router-dom'
 
 const StudentDet = () => {
   const [files,setfiles] = useState();
+  const [name,setName] = useState("");
   const [te,sette] =  useState(localStorage.getItem('tid'));
 
   const onChange = (e) => {
+    setName(e.target.files[0]["name"]);
     const [file] = e.target.files;
     const reader = new FileReader();
 
@@ -57,9 +59,10 @@ const Func = () => {
                 </div>
                 <div className="formBx">
                     <form onSubmit={handleSubmit}>
-                    <h2>Student Details</h2>
+                    <h2>Student Details Upload</h2>
                     <label htmlFor="file" id="lab">Add file</label>
                     <input type="file" id="file" onChange={onChange} style={{display : 'none'}}/>
+                    <p>File Name : <strong>{name}</strong></p>
                     <input type="submit"  />
                     </form>
                 </div>
