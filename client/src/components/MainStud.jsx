@@ -46,8 +46,16 @@ const MainStud = () => {
           </div>
         </div>
         </nav>
-        <div id="hm">
+        <div className="container">
+        <div className="imgBx">
+            <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_i9mtrven.json"  background="transparent"  speed="1"   loop autoplay></lottie-player>
         </div>
+        <div className="main-content">
+            <h1>WORK HARD TO HAVE A GOOD RESULT</h1>
+            <h5>Excellence is the gradual result of always striving to do better - <strong>Pat Riley</strong> </h5>
+        </div>
+         </div>
+        
         {/* <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto" >
                     <div class="container-fluid px-4">

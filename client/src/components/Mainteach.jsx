@@ -55,8 +55,15 @@ const Mainteach = () => {
           </div>
         </div>
         </nav>
-        <div id="hm">
+        <div className="container">
+        <div className="imgBx">
+            <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_HpFqiS.json"  background="transparent"  speed="1"   loop autoplay></lottie-player>
         </div>
+        <div className="main-content">
+            <h1>WORK HARD TO HAVE A GOOD RESULT</h1>
+            <h5>Change is the end result of all true learning - <strong>Leo Buscaglia</strong> </h5>
+        </div>
+         </div>
       </div>
          
       // <div className="content">

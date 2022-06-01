@@ -206,7 +206,7 @@ const StudentRes = () => {
       <form onSubmit={handleSubmit}>
       <div class="form-group">
           <label for="exampleFormControlSelect2">Select Semister:</label>
-             <select class="form-control" id="exampleFormControlSelect2" value={el} onChange={event => sete(event.target.value)}>
+             <select autocomplete="off" class="form-control" id="exampleFormControlSelect2" value={el} onChange={event => sete(event.target.value)}>
              <option value="1-1">1-1</option>
              <option value="1-2">1-2</option>
              <option value="2-1">2-1</option>
@@ -218,7 +218,7 @@ const StudentRes = () => {
              <option value="backlog">backlogs</option>
              </select>
         </div>
-        <input type="submit" value="submit" className="lin" />
+        <input autocomplete="off" type="submit" value="submit" className="lin" />
       </form>
       <Resp />
       </div>

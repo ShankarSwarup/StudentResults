@@ -31,8 +31,15 @@ const Home = () => {
           </div>
         </div>
         </nav>
-        <div id="hm">
+        <div className="container">
+        <div className="imgBx">
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_aao5ezov.json"  background="transparent"  speed="1"   loop autoplay></lottie-player>
         </div>
+        <div className="main-content">
+            <h1>WORK HARD TO HAVE A GOOD RESULT</h1>
+            <h5>Success is a science if you have the conditions, you get the result - <strong>Oscar Wilde</strong> </h5>
+        </div>
+         </div>
       </div>
 //       <div className="content">
 //       <div className="navigation">
