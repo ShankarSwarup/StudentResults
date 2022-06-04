@@ -347,23 +347,40 @@ app.post('/decres',async(req,res)=>{
         res.json({status : "err",message : "Data not updated !",token : false})
     }
 })
+app.post('/finds',async(req,res)=>{
+    try{
+        const name = req.body.ten;
+        const user = await Student.findOne({Reg : name});
+        // console.log(name,req.body.lpassword);
+        if(!user)
+        {
+            res.json({status : "err",message : "No user !",token : false})
+        }
+        else
+        {
+            return res.json({status:'ok',message : "Successful !",data:user});
+        }
+    }
+    catch{
+         res.json({status : "err",message : "No user !",token : false})
+    }
+})
 
 app.post('/gets',async(req,res)=>{
     try{
-        var reg = req.body.reg;
-        var dept = req.body.dept;
-        var year = req.body.year;
-        const temp = req.body.el;
+        const reg= req.body.ten;
+        const temp = req.body.c;
         // console.log(reg,dept,year,temp);
         if(temp!='backlog')
         {
            
-            const user = await excelModel.findOne({"regNo":reg,"year":year,"sem":temp});
+            const user = await excelModel.findOne({"regNo":reg,"sem":temp});
             // console.log(user);
             if(!user)
             {
                 return  res.json({status : "err",message : "No Student !",token : false})
             }
+            // console.log(user);
             return res.json({status:'ok',message : "Successful" , data:user});
         }
         else
@@ -377,6 +394,9 @@ app.post('/gets',async(req,res)=>{
             }
             else
             {
+                // user[0].map((item)=>{
+                //     console.log(item);
+                // })
                 // console.log(user);
                 user.map((item)=>{
                     item.subject.map((a)=>{
@@ -388,7 +408,7 @@ app.post('/gets',async(req,res)=>{
                     })
                 })
                 // console.log(ans);
-                return res.json({status:'ok',message : "backlogs" , data:ans});
+                return res.json({status:'ok',message : "backlogs" , data:user[0] , back:ans});
             }  
         }
     }

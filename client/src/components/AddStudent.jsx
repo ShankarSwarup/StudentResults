@@ -121,7 +121,7 @@ export default class AddStudent extends Component {
               </li>
               <li class="nav-item dropdown">
                 <a style={{textDecoration:'none'}} class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Details
+                  Enter Details
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/addstudent">Student Details</Link></li>
@@ -137,6 +137,16 @@ export default class AddStudent extends Component {
                   <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/subinfo">Subject Details</Link></li>
                   <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/combination">Add / Delete SubjectCombo</Link></li>
                   <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/sublist">SubjectDept List</Link></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a style={{textDecoration:'none'}} class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Check Details
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/studentress">Student Results</Link></li>
+                  <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/studentdett">Student Details</Link></li>
+                  {/* <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/addresults">Student Results</Link></li> */}
                 </ul>
               </li>
             </ul>
