@@ -91,6 +91,7 @@ const StudentDett = () => {
       <h1>Student Details</h1>
       <div id="head">
       <h3>Check Details</h3>
+      <Link  to="/deptstu" className="lin" style={{textDecoration:'none'}} >Department Students Details</Link>
       </div>
       <div id="forms">
       <form onSubmit={handleSubmit}>

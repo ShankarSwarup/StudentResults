@@ -571,6 +571,28 @@ app.post('/addstud',async(req,res) => {
     }
 })
 
+app.post('/findstudents',async(req,res) => {
+    try{
+       const depart = req.body.depart;
+       const year = req.body.year;
+       
+           Student.find({Dept:depart,Year:year},function(err,data){
+           if(data)
+           {
+             return res.json({status:'ok',message : "Successful !",data:data});
+           }
+           else
+           {
+             return res.json({status : "err",message : "No Students !",token : false})
+           }
+       })
+    }
+    catch{
+        return res.json({status : "err",message : "No Students !",token : false})
+    }
+})
+
+
 app.post('/findstudent',async(req,res) => {
     try{
        const depart = req.body.depart;

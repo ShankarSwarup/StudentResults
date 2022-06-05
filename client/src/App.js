@@ -18,6 +18,7 @@ import AddResults from "./components/AddResults";
 import Supply from "./components/Supply";
 import StudentR from "./components/StudentR";
 import StudentDett from "./components/StudentDett";
+import DeptStuDet from "./components/DeptStuDet";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="supply" element={<Supply />} />
           <Route path="studentress" element={<StudentR />} />
           <Route path="studentdett" element={<StudentDett />} />
+          <Route path="deptstu" element={<DeptStuDet />} />
       </Routes>
     </BrowserRouter>
   );
