@@ -19,6 +19,8 @@ import Supply from "./components/Supply";
 import StudentR from "./components/StudentR";
 import StudentDett from "./components/StudentDett";
 import DeptStuDet from "./components/DeptStuDet";
+import Calendar from "./components/Calendar";
+import Events from "./components/Events";
 
 export default function App() {
   return (
@@ -44,6 +46,8 @@ export default function App() {
           <Route path="studentress" element={<StudentR />} />
           <Route path="studentdett" element={<StudentDett />} />
           <Route path="deptstu" element={<DeptStuDet />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="event" element={<Events />} />
       </Routes>
     </BrowserRouter>
   );

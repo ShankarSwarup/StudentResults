@@ -9,6 +9,8 @@ const Staff = require("./models/teacher");
 const excelModel = require("./models/excelschema");
 const Subject = require("./models/subjects");
 const manage = require("./models/manage");
+const Note = require("./models/nodemodel");
+
 dotenv.config();
 
 const port = 3001;
@@ -614,4 +616,30 @@ app.post('/findstudent',async(req,res) => {
     catch{
         return res.json({status : "err",message : "No Students !",token : false})
     }
+})
+
+app.post('/event',async(req,res) => {
+    try{
+        const date = req.body.StartTime;
+            const title = req.body.Subject;
+            var notes = new Note({ date : date , title : title});
+        notes.save(function (err, book) {
+        if (err) return console.error(err);
+                console.log("successful");
+        });
+    return res.json({status:'ok'});
+    }
+    catch(err){
+         return res.json({status:'error' , error:'invalid token'})
+    }
+})
+
+app.post("/cal",async(req,res)=>{
+    try{
+        const data = await Note.find();
+        return res.json({status:'ok',data:data});
+    }
+    catch(err){
+        return res.json({status : "err",message : "No Data !",token : false})
+   }
 })
