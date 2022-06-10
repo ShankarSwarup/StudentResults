@@ -40,6 +40,9 @@ const MainStud = () => {
                 <a style={{textDecoration:'none'}} class="nav-link"  href="http://shankarswarup.pythonanywhere.com">Blogs</a>
               </li>
               <li class="nav-item">
+              <Link style={{textDecoration:'none'}} class="nav-link " aria-current="page" to="/calendar">Events Calendar</Link>
+              </li>
+              <li class="nav-item">
                 <a style={{textDecoration:'none'}} class="nav-link" onClick={handle} href="#">Logout</a>
               </li>
             </ul>

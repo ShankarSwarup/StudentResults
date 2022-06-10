@@ -57,6 +57,15 @@ const Mainteach = () => {
                   <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/studentdett">Student Details</Link></li>
                 </ul>
               </li>
+              <li class="nav-item dropdown">
+                <a style={{textDecoration:'none'}} class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Events
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/event">Add Event</Link></li>
+                  <li><Link style={{textDecoration:'none'}} class="dropdown-item" to="/calendar">Event Calendar</Link></li>
+                </ul>
+              </li>
               <li class="nav-item">
                 <a style={{textDecoration:'none'}} class="nav-link" onClick={handle} href="#" >Logout</a>
               </li>
