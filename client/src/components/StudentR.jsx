@@ -69,15 +69,17 @@ const StudentR = () => {
                 <tr>
                 <th scope="col">Subject Name</th>
                 <th scope="col">Grade</th>
+                <th scope="col">Semister</th>
                 </tr>
             </thead>
             <tbody>
             {
                     props.back.map((item)=>{
                       return(
-                          <tr key={item}>
-                            <td>{item}</td>
+                          <tr key={item[0]}>
+                            <td>{item[0]}</td>
                             <td>F</td>
+                            <td>{item[1]}</td>
                           </tr>
                       )
                     })
@@ -92,7 +94,7 @@ const StudentR = () => {
 
   const Funct = () => {
      const [ten,setten] = useState("");
-     const [c,setc] = useState("");
+     const [c,setc] = useState("1-1");
      const [x,setx] = useState([]);
       const [sub,setsub] = useState([]);
       const [back,setback] = useState([]);

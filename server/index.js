@@ -405,7 +405,7 @@ app.post('/gets',async(req,res)=>{
                         // console.log(a);
                         if(a.grade ==='F')
                         {
-                            ans.push(a.sub);
+                            ans.push([a.sub,item.sem]);
                         }
                     })
                 })

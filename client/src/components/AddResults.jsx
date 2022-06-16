@@ -234,11 +234,11 @@ export default class AddResults extends Component {
             <label for="exampleFormControlInput3">Registration Number</label>
             <Select autocomplete="off" class="form-control" id="exampleFormControlInput3" placeholder="Enter Graduation Year" options={this.state.roll} onChange={this.handleroll.bind(this)} />
           </div>
-          <div class="form-group overflow-auto at">
+          <div class="form-group at" >
           {
               this.state.selectOptions.map(di=>{
                 return(
-                    <div class="form-group overflow-auto" key={this.state.selectOptions.indexOf(di)}>
+                    <div class="form-group"  key={this.state.selectOptions.indexOf(di)}>
                     <label for="exampleFormControlInput4">{di}</label>
                     <Select autocomplete="off" class="form-control sel" id="exampleFormControlInput4"  options={this.state.grad} onChange={(e)=> this.handlegrad(e,di)} />
                     </div>
