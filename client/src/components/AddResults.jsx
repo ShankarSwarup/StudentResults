@@ -232,7 +232,7 @@ export default class AddResults extends Component {
            <button className="btn btn-primary" style={{ marginBottom:'10px'}} onClick={this.handledet.bind(this)}>Get Details</button>
            <div class="form-group">
             <label for="exampleFormControlInput3">Registration Number</label>
-            <Select autocomplete="off" class="form-control" id="exampleFormControlInput3" placeholder="Enter Graduation Year" options={this.state.roll} onChange={this.handleroll.bind(this)} />
+            <Select autocomplete="off" class="form-control" id="exampleFormControlInput3" placeholder="Select Registration Number" options={this.state.roll} onChange={this.handleroll.bind(this)} />
           </div>
           <div class="form-group at" >
           {

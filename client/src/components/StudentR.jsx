@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Navigate} from 'react-router-dom'
 // import '../css/Results.css'
+import Select from 'react-select'
 import { Link } from 'react-router-dom';
 
 
@@ -94,7 +95,7 @@ const StudentR = () => {
 
   const Funct = () => {
      const [ten,setten] = useState("");
-     const [c,setc] = useState("1-1");
+     const [c,setc] = useState("");
      const [x,setx] = useState([]);
       const [sub,setsub] = useState([]);
       const [back,setback] = useState([]);
@@ -165,8 +166,17 @@ const StudentR = () => {
      }
 
      const handle1change = (event) => {
-       setc(event.target.value);
+       setc(event.value);
      }
+
+    const sem = ['1-1','1-2','2-1','2-2','3-1','3-2','4-1','4-2','backlog']
+
+    const sems = sem.map(d=>({
+      "value":d,
+      "label":d
+     
+    }))
+
      return (
       <div>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark" style={{margin:'0px'}}>
@@ -221,26 +231,16 @@ const StudentR = () => {
       <h3>Check Results</h3>
       </div>
       <div id="forms">
-      <form onSubmit={handleSubmit}>
+      <form >
       <div class="form-group">
             <label for="exampleFormControlInput4">Registration Number:</label>
             <input autocomplete="off" type="text" className="form-control" id="exampleFormControlInput4" placeholder="Enter Registration Number:" value={ten} onChange={handlechange}   />
       </div>
       <div class="form-group">
           <label for="exampleFormControlSelect2">Select Semister:</label>
-             <select autocomplete="off" class="form-control" id="exampleFormControlSelect2" value={c} onChange={handle1change}>
-             <option value="1-1">1-1</option>
-             <option value="1-2">1-2</option>
-             <option value="2-1">2-1</option>
-             <option value="2-2">2-2</option>
-             <option value="3-1">3-1</option>
-             <option value="3-2">3-2</option>
-             <option value="4-1">4-1</option>
-             <option value="4-2">4-2</option>
-             <option value="backlog">backlogs</option>
-             </select>
+          <Select autocomplete="off" class="form-control" id="exampleFormControlInput1" placeholder="Select Semister" options={sems} onChange={event=>handle1change(event)} defaultValue={c} />
         </div>
-        <input autocomplete="off" type="submit" value="submit" className="lin" />
+        <input autocomplete="off" type="submit" value="submit" onClick={handleSubmit} className="lin" />
       </form>
       <Resp x={x[0]} xi={xi[0]} sub={sub} val={val} back={back}/>
       </div>
