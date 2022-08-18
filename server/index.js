@@ -10,6 +10,7 @@ const excelModel = require("./models/excelschema");
 const Subject = require("./models/subjects");
 const manage = require("./models/manage");
 const Note = require("./models/nodemodel");
+const Notes = require("./models/event");
 
 dotenv.config();
 
@@ -625,7 +626,7 @@ app.post('/event',async(req,res) => {
             var notes = new Note({ date : date , title : title});
         notes.save(function (err, book) {
         if (err) return console.error(err);
-                console.log("successful");
+                // console.log("successful");
         });
     return res.json({status:'ok'});
     }
@@ -634,9 +635,29 @@ app.post('/event',async(req,res) => {
     }
 })
 
+app.post('/events',async(req,res) => {
+    try{
+        const date = req.body.StartTime;
+        const title = req.body.Subject;
+        const place = req.body.Place;
+        if(date==="" || title==="" || place==="")
+        {
+            return res.json({status:'error',message : "not Submitted !"});
+        }
+        var notes = new Notes({ date : date , title : title , place:place});
+        notes.save(function (err, book) {
+            if (err) return console.error(err);
+            });
+        return res.json({status:'ok'});
+    }
+    catch(err){
+        return res.json({status:'error',message:'not submitted', error:'invalid token'})
+    }
+})
+
 app.post("/cal",async(req,res)=>{
     try{
-        const data = await Note.find();
+        const data = await Notes.find();
         return res.json({status:'ok',data:data});
     }
     catch(err){

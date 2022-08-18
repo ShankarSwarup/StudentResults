@@ -4,29 +4,33 @@ import {useState} from 'react';
 const Event = () => {
   const [Subject,setsubject] = useState('');
   const [StartTime,setstart] = useState('');
+  const [Place,setPlace] = useState('');
 
   const handlesubmit = async(e) => {
     e.preventDefault();
-
-    const res = await fetch('https://vignanminiproject.herokuapp.com/event',{
+ 
+        const rest = await fetch('https://vignanminiproject.herokuapp.com/events',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
             },
             body: JSON.stringify({
                 Subject,
-                StartTime
+                StartTime,
+                Place
             })
         })
 
-        const data = await res.json()
-        if(data.status === 'ok'){
+        const datas = await rest.json()
+        if (datas.status==='ok'){
             setsubject('');
             setstart('');
+            setPlace('');
             alert("successful");
         }
-        else{
-            alert(data.message);
+        else
+        {
+            alert(datas.message);
         }
   }
   
@@ -44,6 +48,8 @@ const Event = () => {
                     <input type="text" id="subject" value={Subject} onChange={event => setsubject(event.target.value)} placeholder="Enter Event Name" style={{marginBottom:'20px'}}/>
                     <label htmlFor="start">Event Date :</label>
                     <input type="date"  id="start" value={StartTime} onChange={event => setstart(String(event.target.value))}  />
+                    <label htmlFor="place">Event Place:</label>
+                    <input type="text" id="place" value={Place} onChange={event=>setPlace(event.target.value)} placeholder="Enter Event Place"></input>
                     <input type="submit" value="submit" />
                     </form>
                 </div>

@@ -9,17 +9,16 @@ import axios from 'axios'
 
 const Calendar = () => {
             const [data,setdata] = useState([{}]);
-            useEffect(()=>{
-              axios.post('https://vignanminiproject.herokuapp.com/cal')
+
+            useEffect(() => {
+               axios.post('https://vignanminiproject.herokuapp.com/cal')
               .then((res)=>{
                  setdata(res.data.data);
               })
-              .catch(()=>{
-              });
-            });
-            const handleDateClick = (arg) => { 
-              alert(arg.dateStr)
-            }
+              return () => {
+                console.log("hel");
+              };
+            }, []);
             
   return (
     <section className="user1" id="user1">
@@ -28,7 +27,7 @@ const Calendar = () => {
       <FullCalendar
         plugins={[ dayGridPlugin , timeGridPlugin, listPlugin ]}
         initialView="dayGridMonth"
-        dateClick={handleDateClick}
+        // dateClick={handleDateClick}
         events={data}
       />
       </div>
