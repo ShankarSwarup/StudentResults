@@ -15,7 +15,7 @@ const StudentDett = () => {
       e.preventDefault();
   
   
-      const res = await fetch('https://vignanminiproject.herokuapp.com/finds',{
+      const res = await fetch('https://backendapi-899p.onrender.com/finds',{
           method:'POST',
           headers: {
                'Content-Type' : 'application/json'

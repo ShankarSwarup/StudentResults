@@ -11,7 +11,7 @@ const Calendar = () => {
             const [data,setdata] = useState([{}]);
 
             useEffect(() => {
-               axios.post('https://vignanminiproject.herokuapp.com/cal')
+               axios.post('https://backendapi-899p.onrender.com/cal')
               .then((res)=>{
                  setdata(res.data.data);
               })

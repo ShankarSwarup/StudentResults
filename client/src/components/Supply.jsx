@@ -76,7 +76,7 @@ export default class Supply extends Component {
            
     //  console.log(this.state.xi);
      
-        axios.post('https://vignanminiproject.herokuapp.com/findstudent',{
+        axios.post('https://backendapi-899p.onrender.com/findstudent',{
         year,
         depart
        }).then(res=>{
@@ -98,7 +98,7 @@ export default class Supply extends Component {
        }).catch(err=> console.log(err))
 
 
-       axios.post('https://vignanminiproject.herokuapp.com/findsub',{
+       axios.post('https://backendapi-899p.onrender.com/findsub',{
         depart,
         semister
        }).then(res=>{
@@ -146,7 +146,7 @@ export default class Supply extends Component {
 
     
 
-    axios.post('https://vignanminiproject.herokuapp.com/decres',{
+    axios.post('https://backendapi-899p.onrender.com/decres',{
      year,
      reg,
      a,

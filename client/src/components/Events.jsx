@@ -9,7 +9,7 @@ const Event = () => {
   const handlesubmit = async(e) => {
     e.preventDefault();
  
-        const rest = await fetch('https://vignanminiproject.herokuapp.com/events',{
+        const rest = await fetch('https://backendapi-899p.onrender.com/events',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'

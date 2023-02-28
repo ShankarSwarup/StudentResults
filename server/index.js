@@ -184,7 +184,7 @@ app.post('/editsub', async(req,res) => {
         const subject = req.body.subj;
         const code = req.body.cod;
         const user = await Subject.findOne({"Subject" : subject});
-        console.log(user);
+        // console.log(user);
         user.Code=code;
         user.save();
         return res.json({status:'ok',message : "Successful !"});
@@ -482,6 +482,38 @@ app.post('/stafflogin', async(req,res) => {
     }
 });
 
+
+app.post('/addteach',async(req,res) => {
+    try{
+       const name =req.body.name;
+       const reg = req.body.reg;
+       const pass = req.body.pass;
+       const dept = req.body.dept;
+       const user = await Staff.findOne({Tid:reg});
+       if(user)
+       {
+        return res.json({status : "err",message : "Teacher Already there !",token : false})
+       }
+       else
+       {
+        var teacher = new Staff(
+            {  Tid: reg ,
+               Name : name ,
+               Dept : dept,
+               Password : pass
+            });
+        teacher.save(function (err, book) {
+        if (err) return console.error(err);
+                // console.log("successful");
+                return res.json({status:'ok',message : "Successful !"});
+        });
+       }
+    }
+    catch{
+        return res.json({status : "err",message : "Data not updated !",token : false})
+    }
+})
+
 app.post('/passchange', async(req,res) => {
     try{
         const filter = { Tid: req.body.reg , Password : req.body.pass};
@@ -573,6 +605,8 @@ app.post('/addstud',async(req,res) => {
         return res.json({status : "err",message : "Data not updated !",token : false})
     }
 })
+
+
 
 app.post('/findstudents',async(req,res) => {
     try{

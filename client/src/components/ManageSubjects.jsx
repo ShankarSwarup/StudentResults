@@ -29,7 +29,7 @@ const ManageSubjects = () => {
     useEffect(() => {
         const sublist = async() => {
     
-            const res = await fetch('https://vignanminiproject.herokuapp.com/sub',{
+            const res = await fetch('https://backendapi-899p.onrender.com/sub',{
                 method:'POST',
                 headers: {
                      'Content-Type' : 'application/json'

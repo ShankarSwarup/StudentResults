@@ -57,7 +57,7 @@ export default class DeptStuDet extends Component {
      const depart = this.state.dep;
      const year = this.state.year;
 
-        axios.post('https://vignanminiproject.herokuapp.com/findstudents',{
+        axios.post('https://backendapi-899p.onrender.com/findstudents',{
         year,
         depart
        }).then(res=>{

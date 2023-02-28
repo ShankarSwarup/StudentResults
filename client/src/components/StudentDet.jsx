@@ -29,7 +29,7 @@ const StudentDet = () => {
     e.preventDefault();
 
     console.log(files);
-    const res = await fetch('https://vignanminiproject.herokuapp.com/excel',{
+    const res = await fetch('https://backendapi-899p.onrender.com/excel',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'

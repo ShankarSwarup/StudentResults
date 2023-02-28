@@ -26,7 +26,7 @@ const Form2 = () => {
 
         console.log(reg,pass,password);
 
-        const res = await fetch('https://vignanminiproject.herokuapp.com/studpass',{
+        const res = await fetch('https://backendapi-899p.onrender.com/studpass',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
@@ -55,7 +55,7 @@ const Form2 = () => {
 
         console.log(lreg,lpassword);
 
-        const res = await fetch('https://vignanminiproject.herokuapp.com/studlogin',{
+        const res = await fetch('https://backendapi-899p.onrender.com/studlogin',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
