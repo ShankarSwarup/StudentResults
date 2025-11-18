@@ -22,7 +22,7 @@ const Form1 = () => {
     const handlesubmit1 = async(e) => {
         e.preventDefault();
 
-        const res = await fetch('https://backendapi-899p.onrender.com/passchange',{
+        const res = await fetch('https://studentresults-5sr4.onrender.com/passchange',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
@@ -51,7 +51,7 @@ const Form1 = () => {
 
         // console.log(lreg,lpassword);
 
-        const res = await fetch('https://backendapi-899p.onrender.com/stafflogin',{
+        const res = await fetch('https://studentresults-5sr4.onrender.com/stafflogin',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'

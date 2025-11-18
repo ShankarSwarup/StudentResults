@@ -18,7 +18,7 @@ export default class CombinationSubject extends Component {
   }
 
  async getOptions(){
-    const res = await axios.post('https://backendapi-899p.onrender.com/sub')
+    const res = await axios.post('https://studentresults-5sr4.onrender.com/sub')
     const data = res.data.data
     const depths = ['CSE','ECE','EEE','CIVIL','MECH','ECM','IT']
     const sem = ['1-1','1-2','2-1','2-2','3-1','3-2','4-1','4-2']
@@ -61,7 +61,7 @@ export default class CombinationSubject extends Component {
        const depart = this.state.dep;
        const semister = this.state.sems;
 
-       axios.post('https://backendapi-899p.onrender.com/mansub',{
+       axios.post('https://studentresults-5sr4.onrender.com/mansub',{
         subject,
         depart,
         semister
@@ -75,7 +75,7 @@ export default class CombinationSubject extends Component {
     const depart = this.state.dep;
     const semister = this.state.sems;
 
-    axios.post('https://backendapi-899p.onrender.com/mannsub',{
+    axios.post('https://studentresults-5sr4.onrender.com/mannsub',{
      subject,
      depart,
      semister

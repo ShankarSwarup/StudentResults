@@ -85,7 +85,7 @@ export default class AddStudent extends Component {
        const address = this.state.add;
        const year = this.state.year;
        
-       axios.post('https://backendapi-899p.onrender.com/addstud',{
+       axios.post('https://studentresults-5sr4.onrender.com/addstud',{
         depart,
         name,
         reg,

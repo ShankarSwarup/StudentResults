@@ -75,7 +75,7 @@ export default class AddResults extends Component {
            
     //  console.log(this.state.xi);
      
-        axios.post('https://backendapi-899p.onrender.com/findstudent',{
+        axios.post('https://studentresults-5sr4.onrender.com/findstudent',{
         year,
         depart
        }).then(res=>{
@@ -97,7 +97,7 @@ export default class AddResults extends Component {
        }).catch(err=> console.log(err))
 
 
-       axios.post('https://backendapi-899p.onrender.com/findsub',{
+       axios.post('https://studentresults-5sr4.onrender.com/findsub',{
         depart,
         semister
        }).then(res=>{
@@ -145,7 +145,7 @@ export default class AddResults extends Component {
 
     
 
-    axios.post('https://backendapi-899p.onrender.com/decres',{
+    axios.post('https://studentresults-5sr4.onrender.com/decres',{
      year,
      reg,
      a,

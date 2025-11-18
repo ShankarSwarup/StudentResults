@@ -29,7 +29,7 @@ const StudentDet = () => {
     e.preventDefault();
 
     console.log(files);
-    const res = await fetch('https://backendapi-899p.onrender.com/excel',{
+    const res = await fetch('https://studentresults-5sr4.onrender.com/excel',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'

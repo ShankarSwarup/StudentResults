@@ -30,7 +30,7 @@ const Results = () => {
 
     e.preventDefault();
 
-    const res = await fetch('https://backendapi-899p.onrender.com/results',{
+    const res = await fetch('https://studentresults-5sr4.onrender.com/results',{
         method:'POST',
         headers: {
              'Content-Type' : 'application/json'

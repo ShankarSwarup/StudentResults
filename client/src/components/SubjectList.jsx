@@ -50,7 +50,7 @@ export default class SubjectList extends Component {
        const depart = this.state.dep;
        const semister = this.state.sems;
 
-       axios.post('https://backendapi-899p.onrender.com/findsub',{
+       axios.post('https://studentresults-5sr4.onrender.com/findsub',{
         depart,
         semister
        }).then(res=>this.setState({selectOptions:res.data.data})).catch(err=> console.log(err))

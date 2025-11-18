@@ -29,7 +29,7 @@ const ManageSubjects = () => {
     useEffect(() => {
         const sublist = async() => {
     
-            const res = await fetch('https://backendapi-899p.onrender.com/sub',{
+            const res = await fetch('https://studentresults-5sr4.onrender.com/sub',{
                 method:'POST',
                 headers: {
                      'Content-Type' : 'application/json'

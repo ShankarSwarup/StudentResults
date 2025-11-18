@@ -9,7 +9,7 @@ const Event = () => {
   const handlesubmit = async(e) => {
     e.preventDefault();
  
-        const rest = await fetch('https://backendapi-899p.onrender.com/events',{
+        const rest = await fetch('https://studentresults-5sr4.onrender.com/events',{
             method:'POST',
             headers: {
                  'Content-Type' : 'application/json'
