@@ -22,8 +22,6 @@ const Form1 = () => {
     const handlesubmit1 = async(e) => {
         e.preventDefault();
 
-        // console.log(reg,pass,password);
-
         const res = await fetch('https://backendapi-899p.onrender.com/passchange',{
             method:'POST',
             headers: {

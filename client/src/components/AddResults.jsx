@@ -252,39 +252,6 @@ export default class AddResults extends Component {
       </div>
       </div>
       </div>
-     
-      // <div>
-      //   <h1>Declare Result</h1>
-      //   <form >
-      //   <label htmlFor="dept">Select Department:</label>
-      //   <Select id="dept" options={this.state.dept} onChange={this.handledept.bind(this)} />
-      //   <label htmlFor="sem">Select Semister:</label>
-      //   <Select id="sem" options={this.state.sem} onChange={this.handlesem.bind(this)} />
-      //   <label htmlFor="year">Select Graduation Year:</label>
-      //   <input type="text" value={this.state.year} onChange={this.handleyear.bind(this)} />
-      //   <button onClick={this.handledet.bind(this)}>Get Details</button>
-        
-      //   <div>
-      //   <label htmlFor="Reg">Registration Number</label>
-      //   <Select id="Reg" options={this.state.roll} onChange={this.handleroll.bind(this)} />
-      //   {
-          
-      //     this.state.selectOptions.map(di=>{
-      //       return(
-      //           <div key={this.state.selectOptions.indexOf(di)}>
-      //           <label htmlFor={di}>{di}</label>
-      //           <Select id={di}  options={this.state.grad} onChange={(e)=> this.handlegrad(e,di)} />
-      //           </div>
-      //       )
-      //     }) 
-      //   }
-      //   </div>
-      //   <button onClick={this.handlesubmits.bind(this)}>Add Results</button>
-      //   </form>
-
-      //   <Link to="/results" className="link">Upload Through Excel</Link>
-      //   <Link to="/supply" className="link" >Add Supply Results Here</Link>
-      // </div>
     )
   }
 }

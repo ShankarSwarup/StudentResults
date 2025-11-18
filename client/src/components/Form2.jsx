@@ -1,7 +1,6 @@
 import React from 'react'
 import "../css/Forms.css"
 import { useState } from 'react'
-// import { Navigate } from "react-router-dom";
 import { useNavigate} from 'react-router-dom'
 
 
@@ -23,8 +22,6 @@ const Form2 = () => {
 
     const handlesubmit1 = async(e) => {
         e.preventDefault();
-
-        console.log(reg,pass,password);
 
         const res = await fetch('https://backendapi-899p.onrender.com/studpass',{
             method:'POST',
@@ -76,7 +73,6 @@ const Form2 = () => {
             setx([]);
             navigate("/mainstud");
 
-            // <Navigate to="/cal"  />
         }
         else{
             alert(data.message);
