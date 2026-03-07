@@ -1,53 +1,149 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Form1 from "./components/Form1";
-import Form2 from "./components/Form2";
-import Profile from "./components/Profile";
-import Results from "./components/Results";
-import StudentDet from "./components/StudentDet";
-import StudentRes from "./components/StudentRes";
-import MainStud from "./components/MainStud";
-import Mainteach from "./components/Mainteach";
-import AddSubject from "./components/AddSubject";
-import ManageSubjects from "./components/ManageSubjects";
-import Editsubjects from "./components/Editsubjects";
-import CombinationSubject from "./components/CombinationSubject";
-import SubjectList from "./components/SubjectList";
-import AddStudent from "./components/AddStudent";
-import AddResults from "./components/AddResults";
-import Supply from "./components/Supply";
-import StudentR from "./components/StudentR";
-import StudentDett from "./components/StudentDett";
-import DeptStuDet from "./components/DeptStuDet";
-import Calendar from "./components/Calendar";
-import Events from "./components/Events";
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from './context/AuthContext';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Syllabus from "./pages/Syllabus";
+import AddStudent from "./pages/AddStudent";
+import AddResults from "./pages/AddResults";
+import ViewResults from "./pages/ViewResults";
+import AcademicCalendar from "./pages/Calendar";
+import ManageSubjects from "./pages/ManageSubjects";
+import ResultsUpload from "./pages/ResultsUpload";
+import AddSubject from "./pages/AddSubject";
+import SubjectList from "./pages/SubjectList";
+import ViewStudents from "./pages/ViewStudents";
+import Profile from "./pages/Profile";
+import AddEvent from "./pages/AddEvent";
+import Dashboard from "./pages/Dashboard";
+import StudentUpload from "./pages/StudentUpload";
+import SemesterResults from "./pages/SemesterResults";
+import Sidebar from "./components/layout/Sidebar";
+import './styles/theme.css';
+
+// Dashboard Layout component
+const DashboardLayout = ({ children }) => {
+  return (
+    <div className="dashboard-layout fade-in">
+      <Sidebar />
+      <main className="main-content">
+        {children}
+      </main>
+    </div>
+  );
+};
+
+// Protected Route wrapper
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <Navigate to="/login" replace />;
+  return <DashboardLayout>{children}</DashboardLayout>;
+};
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="form1" element={<Form1 />} />
-          <Route path="form2" element={<Form2 />} />
-          <Route path="results" element={<Results />} />
-          <Route path="studentdet" element={<StudentDet />} />
-          <Route path="studentres" element={<StudentRes />} />
-          <Route path="mainstud" element={<MainStud />} />
-          <Route path="mainteach" element={<Mainteach />} />
-          <Route path="addsub" element={<AddSubject />} />
-          <Route path="subinfo" element={<ManageSubjects />} />
-          <Route path="editinfo" element={<Editsubjects />} />
-          <Route path="combination" element={<CombinationSubject />} />
-          <Route path="sublist" element={<SubjectList />} />
-          <Route path="addstudent" element={<AddStudent />} />
-          <Route path="addresults" element={<AddResults />} />
-          <Route path="supply" element={<Supply />} />
-          <Route path="studentress" element={<StudentR />} />
-          <Route path="studentdett" element={<StudentDett />} />
-          <Route path="deptstu" element={<DeptStuDet />} />
-          <Route path="calendar" element={<Calendar />} />
-          <Route path="event" element={<Events />} />
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/syllabus" element={<Syllabus />} />
+
+        {/* Dashboard / Protected Routes */}
+        <Route path="/teacher-dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/upload-excel" element={
+          <ProtectedRoute>
+            <ResultsUpload />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/add-student" element={
+          <ProtectedRoute>
+            <AddStudent />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/add-results" element={
+          <ProtectedRoute>
+            <AddResults />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/view-results" element={
+          <ProtectedRoute>
+            <ViewResults />
+          </ProtectedRoute>
+        } />
+        <Route path="/semester-results" element={
+          <ProtectedRoute>
+            <SemesterResults />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/calendar" element={
+          <ProtectedRoute>
+            <AcademicCalendar />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/manage-subjects" element={
+          <ProtectedRoute>
+            <ManageSubjects />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/view-students" element={
+          <ProtectedRoute>
+            <ViewStudents />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/add-subject" element={
+          <ProtectedRoute>
+            <AddSubject />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/student-upload" element={
+          <ProtectedRoute>
+            <StudentUpload />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/subject-list" element={
+          <ProtectedRoute>
+            <SubjectList />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/add-event" element={
+          <ProtectedRoute>
+            <AddEvent />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/student-dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
