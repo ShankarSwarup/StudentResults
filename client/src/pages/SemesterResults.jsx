@@ -69,11 +69,23 @@ const SemesterResults = () => {
                 <form onSubmit={handleSearch} className="form-grid" style={{ alignItems: 'flex-end' }}>
                     <div className="form-group">
                         <label>Department</label>
-                        <Select styles={customStyles} options={deptOptions} onChange={v => setForm({ ...form, depart: v.value })} placeholder="Dept" />
+                        <Select 
+                            styles={customStyles} 
+                            options={deptOptions} 
+                            value={deptOptions.find(o => o.value === form.depart) || null}
+                            onChange={v => setForm({ ...form, depart: v ? v.value : '' })} 
+                            placeholder="Dept" 
+                        />
                     </div>
                     <div className="form-group">
                         <label>Semester</label>
-                        <Select styles={customStyles} options={semOptions} onChange={v => setForm({ ...form, sem: v.value })} placeholder="Sem" />
+                        <Select 
+                            styles={customStyles} 
+                            options={semOptions} 
+                            value={semOptions.find(o => o.value === form.sem) || null}
+                            onChange={v => setForm({ ...form, sem: v ? v.value : '' })} 
+                            placeholder="Sem" 
+                        />
                     </div>
                     <div className="form-group">
                         <label>Graduation Year</label>

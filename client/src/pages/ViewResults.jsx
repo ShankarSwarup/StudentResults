@@ -97,7 +97,13 @@ const ViewResults = () => {
                     </div>
                     <div className="form-group">
                         <label>Select Semester</label>
-                        <Select styles={customStyles} options={semOptions} onChange={v => setSelection({ ...selection, sem: v.value })} placeholder="Sem" />
+                        <Select 
+                            styles={customStyles} 
+                            options={semOptions} 
+                            value={semOptions.find(o => o.value === selection.sem) || null}
+                            onChange={v => setSelection({ ...selection, sem: v ? v.value : '' })} 
+                            placeholder="Sem" 
+                        />
                     </div>
                     <div className="form-group">
                         <button className="btn-primary" style={{ width: '100%', height: '42px' }} disabled={loading}>

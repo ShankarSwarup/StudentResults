@@ -1,34 +1,35 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { loginStart, loginSuccess, loginFailure } from '../store/authSlice';
+import { NotificationContext } from '../context/NotificationContext';
 import API from '../services/api';
 import '../styles/theme.css';
 
 const Login = () => {
     const [isTeacher, setIsTeacher] = useState(false);
-    const [credentials, setCredentials] = useState({ lreg: '', lpassword: '' });
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { login } = useContext(AuthContext);
+    const { notify } = useContext(NotificationContext);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (formData) => {
         setLoading(true);
-        setError('');
+        dispatch(loginStart());
         try {
             const endpoint = isTeacher ? '/auth/teacher/login' : '/auth/student/login';
-            const { data } = await API.post(endpoint, credentials);
+            const { data } = await API.post(endpoint, formData);
             if (data.status === 'ok') {
-                login(data);
+                dispatch(loginSuccess(data.data));
+                notify('Login successful!');
                 navigate(isTeacher ? '/teacher-dashboard' : '/student-dashboard');
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'Login failed. Please try again.');
+            dispatch(loginFailure());
+            notify(err.response?.data?.message || 'Login failed. Please try again.', true);
         } finally {
             setLoading(false);
         }
@@ -36,58 +37,11 @@ const Login = () => {
 
     return (
         <div className="login-page">
-            <style>{`
-                .login-page {
-                    min-height: 100vh;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: var(--background);
-                    padding: 1rem;
-                }
-                .login-card {
-                    width: 100%;
-                    max-width: 440px;
-                }
-                .tab-header {
-                    display: flex;
-                    margin-bottom: 2.5rem;
-                    background: var(--glass-bg);
-                    padding: 4px;
-                    border-radius: 12px;
-                }
-                .tab-btn {
-                    flex: 1;
-                    padding: 10px;
-                    border: none;
-                    background: transparent;
-                    color: var(--text-dim);
-                    font-weight: 600;
-                    cursor: pointer;
-                    border-radius: 8px;
-                    transition: var(--transition);
-                }
-                .tab-btn.active {
-                    background: var(--primary);
-                    color: white;
-                    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-                }
-                .error-msg {
-                    background: rgba(244, 63, 94, 0.1);
-                    color: var(--accent);
-                    padding: 12px;
-                    border-radius: 10px;
-                    font-size: 0.875rem;
-                    margin-bottom: 1.5rem;
-                    border: 1px solid rgba(244, 63, 94, 0.2);
-                    text-align: center;
-                }
-            `}</style>
 
             <div className="glass-card login-card fade-in">
-                <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                    <h2 style={{ fontSize: '2.25rem', marginBottom: '0.5rem' }}>Welcome Back</h2>
-                    <p style={{ color: 'var(--text-dim)', fontSize: '0.95rem' }}>Access your secure academic portal</p>
+                <div className="text-center mb-2-5">
+                    <h2 className="login-h2">Welcome Back</h2>
+                    <p className="login-p">Access your secure academic portal</p>
                 </div>
 
                 <div className="tab-header">
@@ -105,46 +59,54 @@ const Login = () => {
                     </button>
                 </div>
 
-                {error && <div className="error-msg">{error}</div>}
-
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: 600 }}>{isTeacher ? 'TEACHER ID' : 'REGISTRATION NUMBER'}</label>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-group mb-1-5">
+                        <label className="login-label">{isTeacher ? 'TEACHER ID' : 'REGISTRATION NUMBER'}</label>
                         <input
                             type="text"
-                            name="lreg"
                             className="input-field"
                             placeholder={isTeacher ? 'e.g. T-101' : 'e.g. 23CS101'}
-                            value={credentials.lreg}
-                            onChange={handleChange}
-                            required
+                            {...register('lreg', { 
+                                required: 'This field is required',
+                                validate: (value) => {
+                                    if (isTeacher) {
+                                        return value.startsWith('T-') || 'Teacher ID must start with "T-"';
+                                    }
+                                    return value.length >= 5 || 'Registration number must be at least 5 characters';
+                                }
+                            })}
                         />
+                        {errors.lreg && <div style={{ color: 'var(--accent)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{errors.lreg.message}</div>}
                     </div>
-                    <div className="form-group" style={{ marginBottom: '2rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: 600 }}>PASSWORD</label>
+                    <div className="form-group mb-2">
+                        <label className="login-label">PASSWORD</label>
                         <input
                             type="password"
-                            name="lpassword"
                             className="input-field"
                             placeholder="••••••••"
-                            value={credentials.lpassword}
-                            onChange={handleChange}
-                            required
+                            {...register('lpassword', { 
+                                required: 'Password is required',
+                                minLength: {
+                                    value: 6,
+                                    message: 'Password must be at least 6 characters'
+                                }
+                            })}
                         />
+                        {errors.lpassword && <div style={{ color: 'var(--accent)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{errors.lpassword.message}</div>}
                     </div>
-                    <button className="btn-primary" style={{ width: '100%', padding: '14px' }} disabled={loading}>
+                    <button className="btn-primary w-full p-14" disabled={loading}>
                         {loading ? 'Authenticating...' : 'Sign In to Portal'}
                     </button>
                 </form>
 
-                <div style={{ textAlign: 'center', marginTop: '2.5rem', fontSize: '0.875rem', color: 'var(--text-dim)' }}>
+                <div className="login-footer">
                     {isTeacher ? (
                         <p>
-                            New faculty member? <Link to="/signup" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Register Account</Link>
+                            New faculty member? <Link to="/signup" className="link-primary">Register Account</Link>
                         </p>
                     ) : (
                         <p>
-                            Trouble logging in? <span style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: 700 }}>Contact Admin</span>
+                            Trouble logging in? <span className="link-primary-cursor">Contact Admin</span>
                         </p>
                     )}
                 </div>

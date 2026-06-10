@@ -4,7 +4,7 @@ import API from '../services/api';
 import '../styles/theme.css';
 
 const StudentUpload = () => {
-    const [fileData, setFileData] = useState([]);
+    const [fileObj, setFileObj] = useState(null);
     const [fileName, setFileName] = useState("");
     const [status, setStatus] = useState({ msg: '', isErr: false });
     const [loading, setLoading] = useState(false);
@@ -14,22 +14,12 @@ const StudentUpload = () => {
         if (!file) return;
 
         setFileName(file.name);
-        const reader = new FileReader();
-
-        reader.onload = (evt) => {
-            const bstr = evt.target.result;
-            const wb = XLSX.read(bstr, { type: 'binary' });
-            const wsname = wb.SheetNames[0];
-            const ws = wb.Sheets[wsname];
-            const data = XLSX.utils.sheet_to_json(ws);
-            setFileData(data);
-        };
-        reader.readAsBinaryString(file);
+        setFileObj(file);
     };
 
     const handleUpload = async (e) => {
         e.preventDefault();
-        if (fileData.length === 0) {
+        if (!fileObj) {
             setStatus({ msg: 'Please select a valid excel file first.', isErr: true });
             return;
         }
@@ -37,10 +27,14 @@ const StudentUpload = () => {
         setLoading(true);
         setStatus({ msg: '', isErr: false });
         try {
-            const { data } = await API.post('/users/excel-upload', { files: fileData });
+            const formData = new FormData();
+            formData.append('file', fileObj);
+            const { data } = await API.post('/users/upload-excel', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
             if (data.status === 'ok') {
                 setStatus({ msg: 'Batch student enrollment completed successfully!', isErr: false });
-                setFileData([]);
+                setFileObj(null);
                 setFileName("");
             }
         } catch (err) {
@@ -61,76 +55,57 @@ const StudentUpload = () => {
     };
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <div className="glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Batch Student Enrollment</h2>
-                <p style={{ color: 'var(--text-dim)', marginBottom: '3.5rem' }}>Enroll multiple students simultaneously using our standardized enrollment template.</p>
+        <div className="container-md">
+            <div className="glass-card text-center p-3">
+                <h2 className="text-2xl mb-1-5">Batch Student Enrollment</h2>
+                <p className="text-dim mb-3-5">Enroll multiple students simultaneously using our standardized enrollment template.</p>
 
                 {status.msg && (
-                    <div style={{
-                        padding: '1.25rem',
-                        borderRadius: '12px',
-                        marginBottom: '2.5rem',
-                        background: status.isErr ? 'rgba(244, 63, 94, 0.1)' : 'rgba(16, 185, 129, 0.1)',
-                        color: status.isErr ? 'var(--accent)' : '#10b981',
-                        border: `1px solid ${status.isErr ? 'var(--accent)' : '#10b981'}`,
-                        textAlign: 'left'
-                    }}>
+                    <div className={`status-banner ${status.isErr ? 'status-error' : 'status-success'}`}>
                         {status.msg}
                     </div>
                 )}
 
-                <div style={{
-                    border: '2px dashed var(--glass-border)',
-                    borderRadius: '20px',
-                    padding: '4rem 2rem',
-                    background: 'rgba(255, 255, 255, 0.02)',
-                    marginBottom: '3rem',
-                    position: 'relative'
-                }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>👨‍👩‍👧‍👦</div>
-                    <h3 style={{ marginBottom: '0.5rem' }}>{fileName || "Drag and drop enrollment sheet"}</h3>
-                    <p style={{ color: 'var(--text-dim)', fontSize: '0.875rem' }}>Upload .xlsx or .xls files only.</p>
+                <div className="upload-dropzone">
+                    <div className="text-3xl mb-1-5">👨‍👩‍👧‍👦</div>
+                    <h3 className="mb-0-5">{fileName || "Drag and drop enrollment sheet"}</h3>
+                    <p className="text-dim text-sm">Upload .xlsx or .xls files only.</p>
 
                     <input
                         type="file"
                         accept=".xlsx, .xls"
                         onChange={onFileChange}
-                        style={{
-                            position: 'absolute',
-                            top: 0, left: 0, width: '100%', height: '100%',
-                            opacity: 0, cursor: 'pointer'
-                        }}
+                        className="file-input-hidden"
                     />
                 </div>
 
-                <button className="btn-primary" style={{ width: '100%', padding: '16px' }} onClick={handleUpload} disabled={loading || !fileName}>
+                <button className="btn-primary w-full p-1" onClick={handleUpload} disabled={loading || !fileName}>
                     {loading ? 'Processing Enrollment Batch...' : 'Confirm Bulk Enrollment'}
                 </button>
             </div>
 
-            <div className="glass-card" style={{ marginTop: '2rem', padding: '2rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <h3 style={{ fontSize: '1.25rem' }}>Required Data Columns</h3>
-                    <button className="btn-secondary" style={{ fontSize: '0.75rem', padding: '6px 12px' }} onClick={downloadTemplate}>Download Template .XLSX</button>
+            <div className="glass-card mt-2 p-2">
+                <div className="flex-between-center mb-1-5">
+                    <h3 className="text-lg">Required Data Columns</h3>
+                    <button className="btn-secondary text-sm" onClick={downloadTemplate}>Download Template .XLSX</button>
                 </div>
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
+                <div className="overflow-x-auto">
+                    <table className="w-full table-compact">
                         <thead>
-                            <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--glass-border)' }}>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Reg</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Name</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Phn</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Dept</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Gender</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>DOB</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Email</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Year</th>
+                            <tr className="text-left border-bottom">
+                                <th className="text-dim">Reg</th>
+                                <th className="text-dim">Name</th>
+                                <th className="text-dim">Phn</th>
+                                <th className="text-dim">Dept</th>
+                                <th className="text-dim">Gender</th>
+                                <th className="text-dim">DOB</th>
+                                <th className="text-dim">Email</th>
+                                <th className="text-dim">Year</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-                <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-dim)', fontStyle: 'italic' }}>
+                <p className="mt-1 text-sm text-dim text-italic">
                     * DOB must be in Excel Serial Date format. Default credentials will be generated using phone numbers.
                 </p>
             </div>

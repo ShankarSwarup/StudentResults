@@ -11,7 +11,7 @@ const SubjectList = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const { data } = await API.get('/academic/all-subjects');
+                const { data } = await API.get('/academic/subjects');
                 setSubjects(data.data);
             } catch (err) {
                 console.error("Failed to fetch courses");

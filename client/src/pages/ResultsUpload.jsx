@@ -4,7 +4,7 @@ import API from '../services/api';
 import '../styles/theme.css';
 
 const ResultsUpload = () => {
-    const [fileData, setFileData] = useState([]);
+    const [fileObj, setFileObj] = useState(null);
     const [fileName, setFileName] = useState("");
     const [status, setStatus] = useState({ msg: '', isErr: false });
     const [loading, setLoading] = useState(false);
@@ -14,22 +14,12 @@ const ResultsUpload = () => {
         if (!file) return;
 
         setFileName(file.name);
-        const reader = new FileReader();
-
-        reader.onload = (evt) => {
-            const bstr = evt.target.result;
-            const wb = XLSX.read(bstr, { type: 'binary' });
-            const wsname = wb.SheetNames[0];
-            const ws = wb.Sheets[wsname];
-            const data = XLSX.utils.sheet_to_json(ws);
-            setFileData(data);
-        };
-        reader.readAsBinaryString(file);
+        setFileObj(file);
     };
 
     const handleUpload = async (e) => {
         e.preventDefault();
-        if (fileData.length === 0) {
+        if (!fileObj) {
             setStatus({ msg: 'Please select a valid excel file first.', isErr: true });
             return;
         }
@@ -37,10 +27,15 @@ const ResultsUpload = () => {
         setLoading(true);
         setStatus({ msg: '', isErr: false });
         try {
-            const { data } = await API.post('/academic/results-upload', { files: fileData });
+            const formData = new FormData();
+            formData.append('file', fileObj);
+
+            const { data } = await API.post('/academic/upload-results', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
             if (data.status === 'ok') {
                 setStatus({ msg: 'All results processed and uploaded successfully!', isErr: false });
-                setFileData([]);
+                setFileObj(null);
                 setFileName("");
             }
         } catch (err) {
@@ -62,102 +57,79 @@ const ResultsUpload = () => {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div className="glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Bulk Batch Upload</h2>
-                <p style={{ color: 'var(--text-dim)', marginBottom: '3.5rem' }}>Upload student academic records using a standardized Excel template.</p>
+        <div className="container-sm">
+            <div className="glass-card text-center p-3">
+                <h2 className="text-2xl mb-1-5">Bulk Batch Upload</h2>
+                <p className="text-dim mb-3">Upload student academic records using a standardized Excel template.</p>
 
                 {status.msg && (
-                    <div style={{
-                        padding: '1.25rem',
-                        borderRadius: '12px',
-                        marginBottom: '2.5rem',
-                        background: status.isErr ? 'rgba(244, 63, 94, 0.1)' : 'rgba(16, 185, 129, 0.1)',
-                        color: status.isErr ? 'var(--accent)' : '#10b981',
-                        border: `1px solid ${status.isErr ? 'var(--accent)' : '#10b981'}`,
-                        textAlign: 'left'
-                    }}>
+                    <div className={`status-banner ${status.isErr ? 'status-error' : 'status-success'}`}>
                         {status.msg}
                     </div>
                 )}
 
-                <div style={{
-                    border: '2px dashed var(--glass-border)',
-                    borderRadius: '20px',
-                    padding: '4rem 2rem',
-                    background: 'rgba(255, 255, 255, 0.02)',
-                    marginBottom: '3rem',
-                    transition: 'all 0.3s ease',
-                    position: 'relative'
-                }}
-                    onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-                    onMouseOut={e => e.currentTarget.style.borderColor = 'var(--glass-border)'}
-                >
-                    <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>📄</div>
-                    <h3 style={{ marginBottom: '0.5rem' }}>{fileName || "Drop your Excel file here"}</h3>
-                    <p style={{ color: 'var(--text-dim)', fontSize: '0.875rem' }}>Only .xlsx or .xls files are supported.</p>
+                <div className="upload-dropzone">
+                    <div className="text-3xl mb-1-5">📄</div>
+                    <h3 className="mb-0-5">{fileName || "Drop your Excel file here"}</h3>
+                    <p className="text-dim text-sm">Only .xlsx or .xls files are supported.</p>
 
                     <input
                         type="file"
                         accept=".xlsx, .xls"
                         onChange={onFileChange}
-                        style={{
-                            position: 'absolute',
-                            top: 0, left: 0, width: '100%', height: '100%',
-                            opacity: 0, cursor: 'pointer'
-                        }}
+                        className="file-input-hidden"
                     />
                 </div>
 
-                <button className="btn-primary" style={{ width: '100%', padding: '16px' }} onClick={handleUpload} disabled={loading || !fileName}>
+                <button className="btn-primary w-full p-1" onClick={handleUpload} disabled={loading || !fileName}>
                     {loading ? 'Processing Batch Data...' : 'Confirm and Upload Results'}
                 </button>
 
-                <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '2rem', color: 'var(--text-dim)', fontSize: '0.75rem' }}>
+                <div className="flex-center flex-gap-2 mt-2 text-dim" style={{ fontSize: '0.75rem' }}>
                     <span>✅ Automatic Validation</span>
                     <span>✅ Duplication Check</span>
                     <span>✅ Format Verification</span>
                 </div>
             </div>
 
-            <div className="glass-card" style={{ marginTop: '2rem', padding: '2rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <h3 style={{ fontSize: '1.25rem' }}>Standardized Template Format</h3>
-                    <button className="btn-secondary" style={{ fontSize: '0.75rem', padding: '6px 12px' }} onClick={downloadTemplate}>Download Template .XLSX</button>
+            <div className="glass-card mt-2 p-2">
+                <div className="flex-between-center mb-1-5">
+                    <h3 className="text-lg">Standardized Template Format</h3>
+                    <button className="btn-secondary text-sm" onClick={downloadTemplate}>Download Template .XLSX</button>
                 </div>
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
+                <div className="overflow-x-auto">
+                    <table className="w-full table-compact">
                         <thead>
-                            <tr style={{ textAlign: 'left', borderBottom: '1px solid var(--glass-border)' }}>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>regNo</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>sem</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>dept</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>grad</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Maths</th>
-                                <th style={{ padding: '12px', color: 'var(--text-dim)' }}>Physics</th>
+                            <tr className="text-left border-bottom">
+                                <th className="text-dim">regNo</th>
+                                <th className="text-dim">sem</th>
+                                <th className="text-dim">dept</th>
+                                <th className="text-dim">grad</th>
+                                <th className="text-dim">Maths</th>
+                                <th className="text-dim">Physics</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style={{ padding: '12px' }}>23CS101</td>
-                                <td style={{ padding: '12px' }}>1-1</td>
-                                <td style={{ padding: '12px' }}>CSE</td>
-                                <td style={{ padding: '12px' }}>2027</td>
-                                <td style={{ padding: '12px' }}>A</td>
-                                <td style={{ padding: '12px' }}>O</td>
+                                <td>23CS101</td>
+                                <td>1-1</td>
+                                <td>CSE</td>
+                                <td>2027</td>
+                                <td>A</td>
+                                <td>O</td>
                             </tr>
                             <tr>
-                                <td style={{ padding: '12px' }}>23CS102</td>
-                                <td style={{ padding: '12px' }}>1-1</td>
-                                <td style={{ padding: '12px' }}>CSE</td>
-                                <td style={{ padding: '12px' }}>2027</td>
-                                <td style={{ padding: '12px' }}>B</td>
-                                <td style={{ padding: '12px' }}>A</td>
+                                <td>23CS102</td>
+                                <td>1-1</td>
+                                <td>CSE</td>
+                                <td>2027</td>
+                                <td>B</td>
+                                <td>A</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <p style={{ marginTop: '1.5rem', fontSize: '0.8rem', color: 'var(--text-dim)', fontStyle: 'italic' }}>
+                <p className="mt-1-5 text-sm text-dim text-italic">
                     * Column names for subjects (e.g., "Maths", "Physics") should match the subject names registered in the system.
                 </p>
             </div>

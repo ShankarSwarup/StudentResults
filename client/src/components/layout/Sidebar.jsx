@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/authSlice';
 import '../../styles/theme.css';
 
 const Sidebar = () => {
-    const { user, logout } = useContext(AuthContext);
+    const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const isTeacher = user?.tid !== undefined;
 
     const handleLogout = () => {
-        logout();
+        dispatch(logout());
         navigate('/');
     };
 

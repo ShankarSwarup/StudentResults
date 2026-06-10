@@ -19,7 +19,7 @@ const AddStudent = () => {
         setLoading(true);
         setStatus({ msg: '', isErr: false });
         try {
-            const { data } = await API.post('/users/student', formData);
+            const { data } = await API.post('/users/add-student', formData);
             if (data.status === 'ok') {
                 setStatus({ msg: 'Student added successfully!', isErr: false });
                 setFormData({ name: '', reg: '', dob: '', email: '', phn: '', gender: '', address: '', year: '', depart: '' });

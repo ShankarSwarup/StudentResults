@@ -40,7 +40,7 @@ const AddResults = () => {
             setStudentOptions(students);
 
             // Fetch Subjects
-            const subjectRes = await API.post('/academic/find', { depart: selection.dep, semister: selection.sems });
+            const subjectRes = await API.post('/academic/find-subjects', { depart: selection.dep, semister: selection.sems });
             setSubjects(subjectRes.data.data);
             setStatus({ msg: 'Data fetched successfully. Now select student and enter grades.', isErr: false });
         } catch (err) {
@@ -60,7 +60,7 @@ const AddResults = () => {
 
         setLoading(true);
         try {
-            await API.post('/academic/update-results', {
+            await API.post('/academic/update-results-manual', {
                 depart: selection.dep,
                 semister: selection.sems,
                 year: selection.year,
@@ -99,7 +99,7 @@ const AddResults = () => {
     };
 
     const resetGradeEntry = () => {
-        setSelection({ dep: '', sems: '', year: '', reg: '' });
+        setSelection(() => ({ dep: '', sems: '', year: '', reg: '' }));
         setGrades({});
         setSubjects([]);
         setStudentOptions([]);
@@ -131,11 +131,23 @@ const AddResults = () => {
                 <div className="form-grid" style={{ marginBottom: '2rem' }}>
                     <div className="form-group">
                         <label>Department</label>
-                        <Select styles={customStyles} options={deptOptions} onChange={v => setSelection({ ...selection, dep: v.value })} placeholder="Select Dept" />
+                        <Select 
+                            styles={customStyles} 
+                            options={deptOptions} 
+                            value={deptOptions.find(o => o.value === selection.dep) || null}
+                            onChange={v => setSelection(prev => ({ ...prev, dep: v ? v.value : '' }))} 
+                            placeholder="Select Dept" 
+                        />
                     </div>
                     <div className="form-group">
                         <label>Semester</label>
-                        <Select styles={customStyles} options={semOptions} onChange={v => setSelection({ ...selection, sems: v.value })} placeholder="Select Sem" />
+                        <Select 
+                            styles={customStyles} 
+                            options={semOptions} 
+                            value={semOptions.find(o => o.value === selection.sems) || null}
+                            onChange={v => setSelection(prev => ({ ...prev, sems: v ? v.value : '' }))} 
+                            placeholder="Select Sem" 
+                        />
                     </div>
                     <div className="form-group">
                         <label>Graduation Year</label>
@@ -151,14 +163,26 @@ const AddResults = () => {
                     <div className="fade-in">
                         <div className="form-group" style={{ marginBottom: '2.5rem' }}>
                             <label>Select Student</label>
-                            <Select styles={customStyles} options={studentOptions} onChange={v => setSelection({ ...selection, reg: v.value })} placeholder="Select Registration Number" />
+                            <Select 
+                                styles={customStyles} 
+                                options={studentOptions} 
+                                value={studentOptions.find(o => o.value === selection.reg) || null}
+                                onChange={v => setSelection(prev => ({ ...prev, reg: v ? v.value : '' }))} 
+                                placeholder="Select Registration Number" 
+                            />
                         </div>
 
                         <div className="form-grid">
                             {subjects.map((sub, idx) => (
                                 <div key={idx} style={{ background: 'var(--glass-bg)', padding: '1.5rem', borderRadius: '15px', border: '1px solid var(--glass-border)' }}>
                                     <label style={{ display: 'block', marginBottom: '0.75rem', fontWeight: 600 }}>{sub}</label>
-                                    <Select styles={customStyles} options={gradeOptions} onChange={v => handleGradeChange(sub, v.value)} placeholder="Assign Grade" />
+                                    <Select 
+                                        styles={customStyles} 
+                                        options={gradeOptions} 
+                                        value={gradeOptions.find(o => o.value === grades[sub]) || null}
+                                        onChange={v => handleGradeChange(sub, v ? v.value : '')} 
+                                        placeholder="Assign Grade" 
+                                    />
                                 </div>
                             ))}
                         </div>

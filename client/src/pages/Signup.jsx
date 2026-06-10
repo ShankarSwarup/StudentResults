@@ -1,27 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import API from '../services/api';
 import '../styles/theme.css';
 
 const Signup = () => {
-    const [formData, setFormData] = useState({ name: '', tid: '', password: '', dept: '' });
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState('');
     const [status, setStatus] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
         setLoading(true);
         setError('');
         setStatus('');
         try {
-            const { data } = await API.post('/auth/teacher/register', formData);
-            if (data.status === 'ok') {
+            const response = await API.post('/auth/teacher/register', data);
+            if (response.data.status === 'ok') {
                 setStatus('Account created successfully! Redirecting to login...');
                 setTimeout(() => navigate('/login'), 2000);
             }
@@ -78,18 +74,37 @@ const Signup = () => {
                 {error && <div className="error-msg">{error}</div>}
                 {status && <div className="success-msg">{status}</div>}
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group" style={{ marginBottom: '1.25rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: 600 }}>FULL NAME</label>
-                        <input type="text" name="name" className="input-field" placeholder="Dr. Shankar Swarup" value={formData.name} onChange={handleChange} required />
+                        <input 
+                            type="text" 
+                            className="input-field" 
+                            placeholder="Dr. Shankar Swarup" 
+                            {...register('name', { required: 'Name is required' })} 
+                        />
+                        {errors.name && <div style={{ color: 'var(--accent)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{errors.name.message}</div>}
                     </div>
                     <div className="form-group" style={{ marginBottom: '1.25rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: 600 }}>FACULTY ID</label>
-                        <input type="text" name="tid" className="input-field" placeholder="e.g. T-101" value={formData.tid} onChange={handleChange} required />
+                        <input 
+                            type="text" 
+                            className="input-field" 
+                            placeholder="e.g. T-101" 
+                            {...register('tid', { 
+                                required: 'Faculty ID is required',
+                                validate: value => value.trim().startsWith('T-') || 'Faculty ID must start with "T-"'
+                            })} 
+                        />
+                        {errors.tid && <div style={{ color: 'var(--accent)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{errors.tid.message}</div>}
                     </div>
                     <div className="form-group" style={{ marginBottom: '1.25rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: 600 }}>DEPARTMENT</label>
-                        <select name="dept" className="input-field" style={{ appearance: 'none', cursor: 'pointer' }} value={formData.dept} onChange={handleChange} required>
+                        <select 
+                            className="input-field" 
+                            style={{ appearance: 'none', cursor: 'pointer' }} 
+                            {...register('dept', { required: 'Please select a department' })} 
+                        >
                             <option value="" disabled>Select Department</option>
                             <option value="Computer Science">Computer Science</option>
                             <option value="Electrical Engineering">Electrical Engineering</option>
@@ -97,10 +112,20 @@ const Signup = () => {
                             <option value="Civil Engineering">Civil Engineering</option>
                             <option value="Information Technology">Information Technology</option>
                         </select>
+                        {errors.dept && <div style={{ color: 'var(--accent)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{errors.dept.message}</div>}
                     </div>
                     <div className="form-group" style={{ marginBottom: '2rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: 600 }}>SECURE PASSWORD</label>
-                        <input type="password" name="password" className="input-field" placeholder="••••••••" value={formData.password} onChange={handleChange} required />
+                        <input 
+                            type="password" 
+                            className="input-field" 
+                            placeholder="••••••••" 
+                            {...register('password', { 
+                                required: 'Password is required',
+                                minLength: { value: 6, message: 'Password must be at least 6 characters' }
+                            })} 
+                        />
+                        {errors.password && <div style={{ color: 'var(--accent)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{errors.password.message}</div>}
                     </div>
                     <button className="btn-primary" style={{ width: '100%', padding: '14px' }} disabled={loading}>
                         {loading ? 'Processing Registration...' : 'Complete Faculty Setup'}

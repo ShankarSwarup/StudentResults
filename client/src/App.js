@@ -1,78 +1,72 @@
-import React, { useContext } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthContext } from './context/AuthContext';
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Syllabus from "./pages/Syllabus";
-import AddStudent from "./pages/AddStudent";
-import AddResults from "./pages/AddResults";
-import ViewResults from "./pages/ViewResults";
-import AcademicCalendar from "./pages/Calendar";
-import ManageSubjects from "./pages/ManageSubjects";
-import ResultsUpload from "./pages/ResultsUpload";
-import AddSubject from "./pages/AddSubject";
-import SubjectList from "./pages/SubjectList";
-import ViewStudents from "./pages/ViewStudents";
-import Profile from "./pages/Profile";
-import AddEvent from "./pages/AddEvent";
-import Dashboard from "./pages/Dashboard";
-import StudentUpload from "./pages/StudentUpload";
-import SemesterResults from "./pages/SemesterResults";
-import Sidebar from "./components/layout/Sidebar";
+import { NotificationProvider } from './context/NotificationContext';
+import NotificationContainer from './components/common/NotificationContainer';
+import ErrorBoundary from './components/common/ErrorBoundary';
+import ProtectedRoute from './components/common/ProtectedRoute';
 import './styles/theme.css';
 
-// Dashboard Layout component
-const DashboardLayout = ({ children }) => {
-  return (
-    <div className="dashboard-layout fade-in">
-      <Sidebar />
-      <main className="main-content">
-        {children}
-      </main>
-    </div>
-  );
-};
+// Lazy load all pages for Code Splitting (Performance Optimization)
+const Home = lazy(() => import('./pages/Home'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const Syllabus = lazy(() => import('./pages/Syllabus'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const AddStudent = lazy(() => import('./pages/AddStudent'));
+const AddResults = lazy(() => import('./pages/AddResults'));
+const ViewResults = lazy(() => import('./pages/ViewResults'));
+const AcademicCalendar = lazy(() => import('./pages/Calendar'));
+const ManageSubjects = lazy(() => import('./pages/ManageSubjects'));
+const ResultsUpload = lazy(() => import('./pages/ResultsUpload'));
+const AddSubject = lazy(() => import('./pages/AddSubject'));
+const SubjectList = lazy(() => import('./pages/SubjectList'));
+const ViewStudents = lazy(() => import('./pages/ViewStudents'));
+const Profile = lazy(() => import('./pages/Profile'));
+const AddEvent = lazy(() => import('./pages/AddEvent'));
+const StudentUpload = lazy(() => import('./pages/StudentUpload'));
+const SemesterResults = lazy(() => import('./pages/SemesterResults'));
 
-// Protected Route wrapper
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
-  if (loading) return <div>Loading...</div>;
-  if (!user) return <Navigate to="/login" replace />;
-  return <DashboardLayout>{children}</DashboardLayout>;
-};
+const PageLoader = () => (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100vw' }}>
+        <div className="spinner"></div>
+    </div>
+);
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/syllabus" element={<Syllabus />} />
+    <NotificationProvider>
+      <NotificationContainer />
+      <BrowserRouter>
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/syllabus" element={<Syllabus />} />
 
-        {/* Dashboard / Protected Routes */}
-        <Route path="/teacher-dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
+            {/* Dashboard / Protected Routes */}
+            <Route path="/teacher-dashboard" element={
+              <ProtectedRoute requiredRole="teacher">
+                <Dashboard />
+              </ProtectedRoute>
+            } />
 
         <Route path="/upload-excel" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="teacher">
             <ResultsUpload />
           </ProtectedRoute>
         } />
 
         <Route path="/add-student" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="teacher">
             <AddStudent />
           </ProtectedRoute>
         } />
 
         <Route path="/add-results" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="teacher">
             <AddResults />
           </ProtectedRoute>
         } />
@@ -101,13 +95,13 @@ export default function App() {
         } />
 
         <Route path="/view-students" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="teacher">
             <ViewStudents />
           </ProtectedRoute>
         } />
 
         <Route path="/add-subject" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="teacher">
             <AddSubject />
           </ProtectedRoute>
         } />
@@ -131,20 +125,22 @@ export default function App() {
         } />
 
         <Route path="/add-event" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="teacher">
             <AddEvent />
           </ProtectedRoute>
         } />
 
         <Route path="/student-dashboard" element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="student">
             <Dashboard />
           </ProtectedRoute>
         } />
 
-        {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </Suspense>
+      </ErrorBoundary>
     </BrowserRouter>
+    </NotificationProvider>
   );
 }

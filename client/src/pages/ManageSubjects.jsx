@@ -15,7 +15,7 @@ const ManageSubjects = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const { data } = await API.get('/academic/all-subjects');
+                const { data } = await API.get('/academic/subjects');
                 setAllSubjects(data.data.map(d => ({ value: d.Subject, label: d.Subject })));
             } catch (err) {
                 console.error("Failed to fetch subjects");
@@ -31,7 +31,7 @@ const ManageSubjects = () => {
         setLoading(true);
         setStatus({ msg: '', isErr: false });
         try {
-            const { data } = await API.post('/academic/manage', { ...form, action });
+            const { data } = await API.post('/academic/manage-subject', { ...form, action });
             setStatus({ msg: data.message, isErr: false });
         } catch (err) {
             setStatus({ msg: err.response?.data?.message || 'Action failed', isErr: true });
@@ -84,17 +84,35 @@ const ManageSubjects = () => {
 
                 <div className="form-group" style={{ marginBottom: '2rem' }}>
                     <label>Select Course / Subject</label>
-                    <Select styles={customStyles} options={allSubjects} onChange={v => setForm({ ...form, subject: v.value })} placeholder="e.g. Data Structures" />
+                    <Select 
+                        styles={customStyles} 
+                        options={allSubjects} 
+                        value={allSubjects.find(o => o.value === form.subject) || null}
+                        onChange={v => setForm({ ...form, subject: v ? v.value : '' })} 
+                        placeholder="e.g. Data Structures" 
+                    />
                 </div>
 
                 <div className="form-grid" style={{ marginBottom: '3rem' }}>
                     <div className="form-group">
                         <label>Department</label>
-                        <Select styles={customStyles} options={deptOptions} onChange={v => setForm({ ...form, depart: v.value })} placeholder="Select Dept" />
+                        <Select 
+                            styles={customStyles} 
+                            options={deptOptions} 
+                            value={deptOptions.find(o => o.value === form.depart) || null}
+                            onChange={v => setForm({ ...form, depart: v ? v.value : '' })} 
+                            placeholder="Select Dept" 
+                        />
                     </div>
                     <div className="form-group">
                         <label>Academic Semester</label>
-                        <Select styles={customStyles} options={semOptions} onChange={v => setForm({ ...form, semister: v.value })} placeholder="Select Sem" />
+                        <Select 
+                            styles={customStyles} 
+                            options={semOptions} 
+                            value={semOptions.find(o => o.value === form.semister) || null}
+                            onChange={v => setForm({ ...form, semister: v ? v.value : '' })} 
+                            placeholder="Select Sem" 
+                        />
                     </div>
                 </div>
 

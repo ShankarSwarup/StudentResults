@@ -2,10 +2,11 @@ const bcrypt = require('bcryptjs');
 const generateToken = require('../utils/generateToken');
 const Student = require('../models/student');
 const Teacher = require('../models/teacher');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 // @desc    Auth user & get token (Student)
-// @route   POST /api/users/student/login
-const authStudent = async (req, res) => {
+const authStudent = catchAsync(async (req, res, next) => {
     const { lreg, lpassword } = req.body;
     const user = await Student.findOne({ Reg: lreg });
 
@@ -20,14 +21,13 @@ const authStudent = async (req, res) => {
             },
         });
     } else {
-        res.status(401).json({ status: "err", message: 'Invalid registration number or password' });
+        return next(new AppError('Invalid registration number or password', 401));
     }
-};
+});
 
 // @desc    Auth user & get token (Teacher)
-// @route   POST /api/users/teacher/login
-const authTeacher = async (req, res) => {
-    const { lreg, lpassword } = req.body; // Tid is used as lreg in frontend
+const authTeacher = catchAsync(async (req, res, next) => {
+    const { lreg, lpassword } = req.body;
     const user = await Teacher.findOne({ Tid: lreg });
 
     if (user && (await bcrypt.compare(lpassword, user.Password))) {
@@ -41,13 +41,12 @@ const authTeacher = async (req, res) => {
             },
         });
     } else {
-        res.status(401).json({ status: "err", message: 'Invalid teacher ID or password' });
+        return next(new AppError('Invalid teacher ID or password', 401));
     }
-};
+});
 
 // @desc    Update student password
-// @route   POST /api/users/student/password
-const updateStudentPassword = async (req, res) => {
+const updateStudentPassword = catchAsync(async (req, res, next) => {
     const { reg, pass, password } = req.body;
     const user = await Student.findOne({ Reg: reg });
 
@@ -57,14 +56,13 @@ const updateStudentPassword = async (req, res) => {
         await user.save();
         res.json({ status: 'ok', message: 'Password updated' });
     } else {
-        res.status(401).json({ status: "err", message: 'Old password incorrect' });
+        return next(new AppError('Old password incorrect', 401));
     }
-};
+});
 
 // @desc    Update teacher password
-// @route   POST /api/users/teacher/password
-const updateTeacherPassword = async (req, res) => {
-    const { reg, pass, password } = req.body; // Tid, old, new
+const updateTeacherPassword = catchAsync(async (req, res, next) => {
+    const { reg, pass, password } = req.body;
     const user = await Teacher.findOne({ Tid: reg });
 
     if (user && (await bcrypt.compare(pass, user.Password))) {
@@ -73,18 +71,17 @@ const updateTeacherPassword = async (req, res) => {
         await user.save();
         res.json({ status: 'ok', message: 'Password updated' });
     } else {
-        res.status(401).json({ status: "err", message: 'Old password incorrect' });
+        return next(new AppError('Old password incorrect', 401));
     }
-};
+});
 
 // @desc    Register a new teacher
-// @route   POST /api/v1/auth/teacher/register
-const registerTeacher = async (req, res) => {
+const registerTeacher = catchAsync(async (req, res, next) => {
     const { name, tid, password, dept } = req.body;
     const existing = await Teacher.findOne({ Tid: tid });
 
     if (existing) {
-        return res.status(400).json({ status: "err", message: "Teacher ID already registered." });
+        return next(new AppError("Teacher ID already registered.", 400));
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -99,7 +96,7 @@ const registerTeacher = async (req, res) => {
 
     await teacher.save();
     res.status(201).json({ status: 'ok', message: "Teacher account created successfully!" });
-};
+});
 
 module.exports = {
     authStudent,

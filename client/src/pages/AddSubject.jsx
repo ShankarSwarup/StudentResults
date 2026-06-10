@@ -12,7 +12,7 @@ const AddSubject = () => {
         setLoading(true);
         setStatus({ msg: '', isErr: false });
         try {
-            const { data } = await API.post('/academic/subject', formData);
+            const { data } = await API.post('/academic/add-subject', formData);
             if (data.status === 'ok') {
                 setStatus({ msg: 'Course registered successfully!', isErr: false });
                 setFormData({ subj: '', cod: '' });
